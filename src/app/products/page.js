@@ -1,10 +1,11 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, X, SlidersHorizontal, ArrowLeft } from 'lucide-react';
+import { Search, Trash, SlidersHorizontal, ArrowLeft, Trash2Icon } from 'lucide-react';
 import ProductCard from '../../cards/ProductCard';
 import { products } from '../../data/product';
 import { useTheme } from '@/contexts/ThemeContext';
+
 
 const categories = [
   { value: '', label: 'All Categories' },
@@ -61,7 +62,7 @@ const SubcategoryFilter = ({ selectedCategory, selectedSubcategory, setSubcatego
   }
 
   return (
-    <div className="mb-6 border-t border-gray-200 pt-4">
+    <div className="mb-6 border-t border-gray-200  pt-4">
       <h4 className={`font-medium ${currentTheme.text} ${currentTheme.font} mb-3 capitalize`}>{selectedCategory} Subcategory</h4>
       <div className="space-y-2">
         <label className="flex items-center">
@@ -97,7 +98,7 @@ const Products = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 2000 });
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
   const [showDiscounted, setShowDiscounted] = useState(searchParams.get('discount') === 'true');
   const [sortBy, setSortBy] = useState('name-asc');
   const [showInStock, setShowInStock] = useState(false);
@@ -178,7 +179,7 @@ const Products = () => {
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedCategory('');
-    setPriceRange({ min: 0, max: 2000 });
+    setPriceRange({ min: 0, max: 50000 });
     setShowDiscounted(false);
     setShowInStock(false);
     setSortBy('name-asc');
@@ -225,23 +226,12 @@ const Products = () => {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          <div className="flex-1 relative">
-            <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${currentTheme.lightText}`} />
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
-            />
-          </div>
 
-          <div className="flex gap-2">
+          <div className="flex  gap-3">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
+              className={`px-1 py-2 w-45 h-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
             >
               {sortOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -253,16 +243,27 @@ const Products = () => {
             <Button
               variant="outline"
               onClick={() => setShowFilters(!showFilters)}
-              className={`relative ${currentTheme.inputBg} border ${currentTheme.inputBorder} transition-colors duration-500`}
+              className={`relative flex w-30 h-10 ${currentTheme.inputBg} border-3 border-black ${currentTheme.inputBorder} transition-colors duration-500`}
             >
               <SlidersHorizontal className={`w-5 h-5 mr-2 ${currentTheme.text}`} />
-              <span className={currentTheme.text}>{(showFilters===false)?"Filters":"hide"}</span>
+              <span className={currentTheme.text}>{(showFilters===false)?"Filters":"Hide"}</span>
               {activeFiltersCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {activeFiltersCount}
                 </span>
               )}
             </Button>
+            <div className="flex flex-col lg:flex-row  mb-8 ml-60  w-100">
+              <div className="flex-1 relative">
+                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${currentTheme.lightText}`} />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={`w-full pl-10 pr-4 py-3  border-3 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
+                />
+              </div>
           </div>
         </div>
 
@@ -278,17 +279,17 @@ const Products = () => {
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-                className={`p-6 rounded-lg shadow-md transition-colors duration-500 ${currentTheme.inputBg}`}
+                transition={{ duration: 0.9 }}
+                className={`p-6 rounded-lg shadow-md w-60 transition-colors duration-500 ${currentTheme.inputBg}`}
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-4 gap-2">
                 <h3 className={`text-lg font-semibold ${currentTheme.text}`}>Filters</h3>
                 {activeFiltersCount > 0 && (
                   <button
                     onClick={clearFilters}
-                    className={`hover:text-red-700 text-sm flex items-center ${currentTheme.accent}`}
+                    className={`text-red-700 text-sm font-bold  flex items-center ${currentTheme.accent}`}
                   >
-                    <X className="w-4 h-4 mr-1" />
+                    <Trash className="w-4 h-4 mr-1" />
                     Clear All
                   </button>
                 )}

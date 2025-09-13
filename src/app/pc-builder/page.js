@@ -240,7 +240,7 @@ const PCBuilder = () => {
                             />
                             <div className="flex-1">
                               <h4 className="font-semibold text-gray-200">{selectedComponent.product.name}</h4>
-                              <p className="text-sm text-gray-400">${selectedComponent.product.price.toLocaleString()}</p>
+                              <p className="text-sm text-gray-400">₹{selectedComponent.product.price.toLocaleString()}</p>
                             </div>
                             <Button onClick={() => setSelectedComponentType(componentType.type)}>Change</Button>
                           </motion.div>
@@ -304,7 +304,7 @@ const PCBuilder = () => {
                             <span className="truncate">
                               {componentTypes.find(t => t.type === comp.type)?.name}
                             </span>
-                            <span className="font-medium text-white">${comp.product?.price.toLocaleString()}</span>
+                            <span className="font-medium text-white">₹{comp.product?.price.toLocaleString()}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -319,7 +319,7 @@ const PCBuilder = () => {
                           transition={{ duration: 0.5 }}
                           className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500"
                         >
-                          ${totalPrice.toLocaleString()}
+                          ₹{totalPrice.toLocaleString()}
                         </motion.span>
                       </div>
                     </div>

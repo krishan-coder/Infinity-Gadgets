@@ -35,7 +35,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           />
           
           {product.discount && (
-            <div className={`absolute top-2 left-2 px-2 py-1 rounded-md text-sm font-semibold ${currentTheme.accent}`}>
+            <div className={`absolute top-0 left-0   bg-red-500  text-white text-md rounded-full h-6 w-9  text-sm font-semibold ${currentTheme.accent}`}>
               -{product.discount}%
             </div>
           )}
@@ -47,7 +47,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           )}
 
           {!product.inStock && (
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="absolute inset-0 hover:bg-black bg-opacity-50 flex items-center justify-center">
               <span className="bg-red-600 text-white px-3 py-1 rounded-lg font-semibold text-sm">
                 Out of Stock
               </span>
@@ -55,7 +55,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           )}
 
           {/* Quick View Button - Responsive adjustment */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 lg:group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
+          <div className="absolute inset-0  bg-opacity-0 lg:group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
             <Button variant="outline" size="sm" className={`bg-white border-none text-sm ${currentTheme.text} ${currentTheme.accent}`}>
               <Eye className="w-4 h-4 mr-1" />
               Quick View
@@ -87,19 +87,19 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           <div className="flex items-center justify-between mb-3">
             <div>
               <span className={`text-xl font-bold ${currentTheme.text}`}>
-                ${product.price.toLocaleString()}
+                ₹{product.price.toLocaleString()}
               </span>
               {product.originalPrice && (
                 <span className={`text-sm line-through ml-2 ${currentTheme.lightText}`}>
-                  ${product.originalPrice.toLocaleString()}
+                  ₹{product.originalPrice.toLocaleString()}
                 </span>
               )}
             </div>
-            {product.inStock && (
-              <span className="text-sm text-green-600">
-                {product.stockCount} in stock
+            { 
+              <span className={`text-sm ${product.stockCount != 0 ? "text-green-600" : "text-red-600 line-through "  } `}>
+                {product.stockCount != 0 ? "In stock" : "Out of stock"} 
               </span>
-            )}
+            }
           </div>
 
           <Button

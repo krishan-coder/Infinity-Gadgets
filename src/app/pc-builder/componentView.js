@@ -86,7 +86,7 @@ const ComponentSelectionView = ({ componentType, onSelectProduct, onBack }) => {
               <h3 className="text-lg font-bold text-white truncate">{product.name}</h3>
               <p className="text-sm text-gray-400 mt-1 mb-2">{product.description}</p>
               <div className="flex justify-between items-center pt-2 border-t border-gray-700">
-                <span className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">${product.price.toLocaleString()}</span>
+                <span className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">₹{product.price.toLocaleString()}</span>
                 <span className="text-xs text-green-400 font-semibold">{product.inStock ? 'In Stock' : 'Out of Stock'}</span>
               </div>
             </motion.div>

@@ -42,7 +42,7 @@ const ComponentHoverInfo = ({ componentDetails }) => {
             />
             <div className="flex-1">
               <p className="text-sm font-semibold text-gray-200 truncate">{product.name}</p>
-              <p className="text-xs text-gray-400">${product.price.toLocaleString()}</p>
+              <p className="text-xs text-gray-400">₹{product.price.toLocaleString()}</p>
             </div>
           </div>
         ))}

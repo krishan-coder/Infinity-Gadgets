@@ -159,16 +159,16 @@ const ProductDetail = () => {
 
             <div className="flex items-baseline flex-wrap gap-x-4 mb-4 md:mb-6">
               <span className={`text-2xl sm:text-3xl font-bold ${currentTheme.text}`}>
-                ${product.price.toLocaleString()}
+                ₹{product.price.toLocaleString()}
               </span>
               {product.originalPrice && (
                 <span className={`text-lg sm:text-xl line-through ${currentTheme.lightText}`}>
-                  ${product.originalPrice.toLocaleString()}
+                  ₹{product.originalPrice.toLocaleString()}
                 </span>
               )}
               {product.discount && (
                 <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold mt-2 sm:mt-0">
-                  Save ${(product.originalPrice - product.price).toLocaleString()}
+                  Save ₹{(product.originalPrice - product.price).toLocaleString()}
                 </span>
               )}
             </div>

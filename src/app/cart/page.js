@@ -40,9 +40,9 @@ const Cart = () => {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Shopping Cart</h1>
         <button
           onClick={clearCart}
-          className="text-red-600 hover:text-red-700 text-sm font-medium"
+          className="text-white bg-red-600 w-25 -pl-5 border-white-2 h-10 rounded-2xl hover:outline-red text-sm font-medium"
         >
-          Clear Cart
+          Clear Cart 🗑
         </button>
       </div>
 
@@ -99,20 +99,20 @@ const Cart = () => {
                     {/* Price */}
                     <div className="flex items-center space-x-2 sm:space-x-4">
                       <span className="text-lg font-bold text-gray-900">
-                        ${item.product.price.toLocaleString()}
+                        ₹{item.product.price.toLocaleString()}
                       </span>
                       {item.product.originalPrice && (
                         <span className="text-xs sm:text-sm text-gray-500 line-through">
-                          ${item.product.originalPrice.toLocaleString()}
+                          {item.product.originalPrice.toLocaleString()}
                         </span>
                       )}
                     </div>
                     
                     {/* Quantity Selector */}
-                    <div className="flex items-center border border-gray-300 rounded-lg">
+                    <div className="flex items-center border border-gray-300 text-black rounded-lg">
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                        className="p-2 hover:bg-gray-100 transition-colors"
+                        className="p-2 hover:bg-red-600 hover:border rounded-xl transition-colors"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
@@ -121,7 +121,7 @@ const Cart = () => {
                       </span>
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                        className="p-2 hover:bg-gray-100 transition-colors"
+                        className="p-2 hover:bg-green-500 hover:border rounded-xl transition-colors"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -131,7 +131,7 @@ const Cart = () => {
               </div>
               <div className="flex justify-end mt-4 sm:mt-0">
                 <p className="text-lg font-bold text-gray-900">
-                  {`Total: ${(item.product.price * item.quantity).toLocaleString()}`}
+                  {`Total: ₹ ${(item.product.price * item.quantity).toLocaleString()}`}
                 </p>
               </div>
             </motion.div>
@@ -146,7 +146,7 @@ const Cart = () => {
             <div className="space-y-3 mb-4">
               <div className="flex justify-between text-gray-600 text-sm sm:text-base">
                 <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                <span>${getTotalPrice().toLocaleString()}</span>
+                <span>₹{getTotalPrice().toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-gray-600 text-sm sm:text-base">
                 <span>Shipping</span>
@@ -154,14 +154,14 @@ const Cart = () => {
               </div>
               <div className="flex justify-between text-gray-600 text-sm sm:text-base">
                 <span>Tax</span>
-                <span>${(getTotalPrice() * 0.08).toFixed(2)}</span>
+                <span>₹{(getTotalPrice() * 0.08).toFixed(2)}</span>
               </div>
             </div>
 
             <div className="border-t border-gray-200 pt-4 mb-6">
               <div className="flex justify-between text-xl font-bold text-gray-900">
                 <span>Total</span>
-                <span>${(getTotalPrice() * 1.08).toFixed(2)}</span>
+                <span>₹{(getTotalPrice() * 1.08).toFixed(2)}</span>
               </div>
             </div>
 

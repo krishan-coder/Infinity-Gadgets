@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ShoppingBag, Zap, Shield } from 'lucide-react';
 
@@ -14,7 +14,6 @@ const Button = ({ children, onClick, className = '', disabled = false, size = 'm
     </button>
   );
 };
-
 
 // Pre-defined data for the banner slides
 const bannerSlides = [
@@ -49,87 +48,183 @@ const bannerSlides = [
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Auto-advance the slides every 5 seconds
+  // Smooth slide change function with transition lock
+  const changeSlide = useCallback((newIndex) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide(newIndex);
+    
+    // Release transition lock after animation completes
+    setTimeout(() => setIsTransitioning(false), 800);
+  }, [isTransitioning]);
+
+  // Auto-advance the slides every 7 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
-    }, 5000);
+      if (!isTransitioning) {
+        changeSlide((currentSlide + 1) % bannerSlides.length);
+      }
+    }, 7000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [currentSlide, isTransitioning, changeSlide]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
+    changeSlide((currentSlide + 1) % bannerSlides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + bannerSlides.length) % bannerSlides.length);
+    changeSlide((currentSlide - 1 + bannerSlides.length) % bannerSlides.length);
+  };
+
+  const goToSlide = (index) => {
+    changeSlide(index);
+  };
+
+  // Smooth transition variants
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 1.1,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94], // Custom cubic-bezier for smooth easing
+      }
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 0.9,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }
+    })
+  };
+
+  const contentVariants = {
+    initial: {
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        staggerChildren: 0.1,
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -30,
+      scale: 1.1,
+      transition: {
+        duration: 0.4,
+        ease: 'easeInOut',
+      }
+    }
+  };
+
+  const itemVariants = {
+    initial: {
+      opacity: 0,
+      y: 30,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }
+    }
   };
 
   return (
-    <div className="relative min-h-[450px] md:h-[500px] lg:h-[600px] overflow-hidden">
-      <AnimatePresence mode="wait">
+    <div className="relative min-h-[450px] md:h-[500px] lg:h-[600px] overflow-hidden bg-gray-900">
+      <AnimatePresence mode="wait" custom={currentSlide}>
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          custom={currentSlide}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
           className="absolute inset-0"
         >
-          {/* Background image without blur */}
-          <div
+          {/* Background image with smooth transition */}
+          <motion.div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${bannerSlides[currentSlide].image})` }}
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{
+              duration: 1,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
           />
 
-          {/* Content container with frosted glass effect on top of the background */}
+          {/* Overlay for better text readability */}
+          <motion.div
+            className="absolute inset-0 bg-black/20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          />
+
+          {/* Content container with smooth animations */}
           <div className="absolute inset-0 flex items-center justify-center p-4">
-            <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md rounded-lg p-6 md:p-10 shadow-lg text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-white space-y-6"
-              >
-                <div className="space-y-2">
+            <motion.div
+              className="w-full max-w-2xl bg-black/30 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl text-center"
+              variants={contentVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <div className="text-white space-y-6">
+                <div className="space-y-3">
                   <motion.h1
                     className="text-4xl md:text-6xl font-bold leading-tight"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
+                    variants={itemVariants}
                   >
                     {bannerSlides[currentSlide].title}
                   </motion.h1>
                   <motion.h2
                     className="text-xl md:text-2xl font-semibold text-blue-300"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
+                    variants={itemVariants}
                   >
                     {bannerSlides[currentSlide].subtitle}
                   </motion.h2>
                 </div>
 
                 <motion.p
-                  className="text-lg text-gray-200 max-w-md mx-auto"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.7, duration: 0.6 }}
+                  className="text-lg text-gray-200 max-w-md mx-auto leading-relaxed"
+                  variants={itemVariants}
                 >
                   {bannerSlides[currentSlide].description}
                 </motion.p>
 
                 <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                  className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                  variants={itemVariants}
                 >
                   <a href={bannerSlides[currentSlide].buttonLink} target="_blank" rel="noopener noreferrer">
-                    <Button size="lg" className="bg-black text-white hover:bg-black-800">
-                      <ShoppingBag className="w-5 h-5 mr-2" />
+                    <Button size="lg" className="bg-black text-white hover:bg-gray-800 text-sm flex items-center gap-2">
+                      <ShoppingBag className="w-5 h-5 " />
                       {bannerSlides[currentSlide].buttonText}
                     </Button>
                   </a>
@@ -141,40 +236,54 @@ const Banner = () => {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Shield className="w-4 h-4 text-green-400" />
-                      <span>2 Year Warranty</span>
+                      <span>With Warranty</span>
                     </div>
                   </div>
                 </motion.div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Arrows */}
-      <button
+      {/* Navigation Arrows with smooth hover effects */}
+      <motion.button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200 z-10"
+        disabled={isTransitioning}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white p-3 rounded-full transition-all duration-300 z-10 backdrop-blur-sm disabled:opacity-50"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
         <ChevronLeft className="w-6 h-6" />
-      </button>
+      </motion.button>
 
-      <button
+      <motion.button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-20 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200 z-10"
+        disabled={isTransitioning}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white p-3 rounded-full transition-all duration-300 z-10 backdrop-blur-sm disabled:opacity-50"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
         <ChevronRight className="w-6 h-6" />
-      </button>
+      </motion.button>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+      {/* Slide Indicators with smooth animations */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
         {bannerSlides.map((_, index) => (
-          <button
+          <motion.button
             key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
-              currentSlide === index ? 'bg-white' : 'bg-white bg-opacity-50'
+            onClick={() => goToSlide(index)}
+            disabled={isTransitioning}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentSlide === index ? 'bg-white shadow-lg' : 'bg-white/40 hover:bg-white/60'
             }`}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            animate={{
+              scale: currentSlide === index ? 1.2 : 1,
+              backgroundColor: currentSlide === index ? '#ffffff' : 'rgba(255, 255, 255, 0.4)',
+            }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
           />
         ))}
       </div>
