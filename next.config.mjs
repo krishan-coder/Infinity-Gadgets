@@ -12,7 +12,8 @@ const nextConfig = {
       "i5.walmartimages.com",
       "cdn.thewirecutter.com",
       "i5.walmartimages.com",
-      "ui-avatars.com"
+      "ui-avatars.com",
+       "dlcdnwebimgs.asus.com"
     ],
   },
 };

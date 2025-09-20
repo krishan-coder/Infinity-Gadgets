@@ -69,7 +69,7 @@ const ProductDetail = () => {
       {/* Breadcrumb */}
       <nav className={`flex items-center space-x-2 text-sm ${currentTheme.lightText} mb-6 md:mb-8`}>
         <button onClick={() => router.push('/products')} className={`hover:${currentTheme.accent}`}>
-          Products
+          Product
         </button>
         <span>/</span>
         <button

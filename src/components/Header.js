@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link'; 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Search, ShoppingCart, User, Menu, X, Monitor } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -16,7 +16,9 @@ const Header = () => {
   const { user, logout } = useAuth();
   const { getTotalItems } = useCart();
   const router = useRouter();
- 
+
+  const pathname = usePathname();
+  const isActive = (path) => pathname === path;
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -34,12 +36,14 @@ const Header = () => {
   return (
     <header className="bg-neutral-800 text-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Monitor className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-white">Infinity Gadgets</span>
-          </Link>
+        <div className="flex items-center justify-between h-16">
+          <div className='flex space-x-2 lg:-ml-10 '>
+
+            <Monitor className="h-10 w-10 mt-3 -ml-2 text-blue-600 " />
+            <span className="text-md font-mono lg:text-3xl mt-3 font-bold text-white space-x-2">Infinity Gadgets</span>
+          </div>
+
 
           {/* Search Bar - Desktop */}
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-8">
@@ -49,7 +53,7 @@ const Header = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products..."
-                className="w-full px-4 py-2 border text-white border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border text-white border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="submit"
@@ -61,19 +65,54 @@ const Header = () => {
           </form>
 
           {/* Navigation Links - Desktop */}
-          <nav className="hidden lg:flex items-center space-x-6">
-            <Link href="/products" className="text-white hover:text-blue-600 transition-colors">
-              Products
-            </Link>
-            <Link href="/pc-builder" className="text-white hover:text-blue-600 transition-colors">
-              PC Builder
-            </Link>
-            {user?.role === 'admin' && (
-              <Link href="/admin" className="text-white hover:text-blue-600 transition-colors">
-                Admin
+          <nav className="hidden md:flex items-center space-x-6">
+              <Link
+                href="/"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  isActive('/')
+                    ? 'bg-blue-600 text-white'
+                    : 'text-zinc-300 hover:text-white hover:bg-blue-500'
+                }`}
+              >
+                Home
               </Link>
-            )}
+
+              <Link
+                href="/products"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  isActive('/products')
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-blue-500'
+                }`}
+              >
+                Products
+              </Link>
+
+              <Link
+                href="/pc-builder"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  isActive('/pc-builder')
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-blue-500'
+                }`}
+              >
+                PC Builder
+              </Link>
+
+              {user?.role === 'admin' && (
+                <Link
+                  href="/admin"
+                  className={`px-4 py-2 rounded-md transition-colors ${
+                    isActive('/admin')
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-300 hover:text-white hover:bg-blue-500'
+                  }`}
+                >
+                  Admin
+                </Link>
+              )}
           </nav>
+
 
           {/* User Actions */}
           <div className="flex items-center space-x-4">
@@ -124,7 +163,7 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-gray-700 hover:text-blue-600"
+              className="lg:hidden p-2 text-zinc-500 hover:text-blue-600"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -137,7 +176,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-gray-200 py-4"
+            className="lg:hidden border-t border-grey-300 py-4"
           >
             {/* Mobile Search */}
             <form onSubmit={handleSearch} className="mb-4">
@@ -163,14 +202,14 @@ const Header = () => {
               <Link
                 href="/products"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 hover:text-blue-600 py-2"
+                className="text-zinc-400 font-semibold hover:text-blue-600 py-2"
               >
                 Products
               </Link>
               <Link
                 href="/pc-builder"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 hover:text-blue-600 py-2"
+                className="text-zinc-400 font-semibold hover:text-blue-600 py-2"
               >
                 PC Builder
               </Link>

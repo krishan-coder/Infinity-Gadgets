@@ -226,12 +226,25 @@ const Products = () => {
           </p>
         </div>
 
+        <div className="flex flex-col-1 lg:flex-row  mb-8 ml-0 w-100 xl:w-full">
+              <div className="flex-1 relative">
+                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${currentTheme.lightText}`} />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={` xl:w-full pl-10 pr-4 py-3  border-3 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
+                />
+              </div>
+          </div>
 
-          <div className="flex  gap-3">
+
+          <div className="flex gap-3">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className={`px-1 py-2 w-45 h-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
+              className={`px-1 py-2 w-29 xl:w-45 h-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
             >
               {sortOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -243,28 +256,17 @@ const Products = () => {
             <Button
               variant="outline"
               onClick={() => setShowFilters(!showFilters)}
-              className={`relative flex w-30 h-10 ${currentTheme.inputBg} border-3 border-black ${currentTheme.inputBorder} transition-colors duration-500`}
+              className={`relative flex w-27 xl:w-30 h-10 ${currentTheme.inputBg} border-3 border-black ${currentTheme.inputBorder} transition-colors duration-500`}
             >
-              <SlidersHorizontal className={`w-5 h-5 mr-2 ${currentTheme.text}`} />
+              <SlidersHorizontal className={`w-5 h-5 mr-1 lg:mr-2 xl:mr-2 ${currentTheme.text}`} />
               <span className={currentTheme.text}>{(showFilters===false)?"Filters":"Hide"}</span>
               {activeFiltersCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center mb-10">
                   {activeFiltersCount}
                 </span>
               )}
             </Button>
-            <div className="flex flex-col lg:flex-row  mb-8 ml-60  w-100">
-              <div className="flex-1 relative">
-                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${currentTheme.lightText}`} />
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-3  border-3 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
-                />
-              </div>
-          </div>
+          
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -406,7 +408,7 @@ const Products = () => {
               </div>
             ) : (
               <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
