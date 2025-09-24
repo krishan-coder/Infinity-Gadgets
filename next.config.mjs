@@ -13,7 +13,10 @@ const nextConfig = {
       "cdn.thewirecutter.com",
       "i5.walmartimages.com",
       "ui-avatars.com",
-       "dlcdnwebimgs.asus.com"
+      "dlcdnwebimgs.asus.com",
+      "res.cloudinary.com",
+      
+
     ],
   },
 };

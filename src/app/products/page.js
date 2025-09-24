@@ -1,432 +1,482 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Trash, SlidersHorizontal, ArrowLeft, Trash2Icon } from 'lucide-react';
+import {
+  Search,
+  Trash,
+  SlidersHorizontal,
+  ArrowLeft,
+  X,
+  ShoppingCart,
+  Eye
+} from 'lucide-react';
 import ProductCard from '../../cards/ProductCard';
 import { products } from '../../data/product';
 import { useTheme } from '@/contexts/ThemeContext';
 
+/* ---------------------------
+ *  Redesigned Products Page
+ *  - Category Bar (scrollable)
+ *  - Subcategory chips
+ *  - Sidebar filters -> collapsible drawer on small screens
+ *  - Responsive product grid + hover quick-actions
+ * ---------------------------- */
 
-const categories = [
-  { value: '', label: 'All Categories' },
-  { value: 'gaming', label: 'Gaming' },
-  { value: 'components', label: 'Components' },
-  { value: 'accessories', label: 'Accessories' },
-  { value: 'commercial', label: 'Commercial' }
+const CATEGORIES = [
+  { value: '', label: 'All' },
+{ value: 'gaming', label: 'Gaming' },
+{ value: 'components', label: 'Components' },
+{ value: 'accessories', label: 'Accessories' },
+{ value: 'commercial', label: 'Commercial' }
 ];
 
-const subcategories = {
+const SUBCATS = {
   gaming: ['keyboard', 'mouse', 'headset', 'mousepad'],
   components: ['monitor', 'cooler'],
-  accessories: ['docking-station', 'webcam']
+  accessories: ['docking-station', 'webcam'],
 };
 
-const sortOptions = [
+const SORT_OPTIONS = [
   { value: 'name-asc', label: 'Name (A-Z)' },
   { value: 'name-desc', label: 'Name (Z-A)' },
-  { value: 'price-asc', label: 'Price (Low to High)' },
-  { value: 'price-desc', label: 'Price (High to Low)' },
-  { value: 'rating-desc', label: 'Highest Rated' },
-  { value: 'discount-desc', label: 'Biggest Discount' }
+  { value: 'price-asc', label: 'Price (Low → High)' },
+  { value: 'price-desc', label: 'Price (High → Low)' },
+  { value: 'rating-desc', label: 'Top Rated' },
+{ value: 'discount-desc', label: 'Biggest Discount' },
 ];
 
-
-
-const Button = ({ children, onClick, variant = 'primary', className = '' }) => {
-  const baseClasses = "px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500";
-  const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700",
-    outline: "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50",
-    link: "text-blue-600 hover:underline"
-  };
-  return (
-    <button onClick={onClick} className={`${baseClasses} ${variants[variant]} ${className}`}>
-      {children}
-    </button>
-  );
-};
-
-const useSearchParams = () => {
-  const [params, setParams] = useState(new URLSearchParams());
-
-  const setSearchParams = (newParams) => {
-    setParams(newParams);
-  };
-
-  return [params, setSearchParams];
-};
-
-const SubcategoryFilter = ({ selectedCategory, selectedSubcategory, setSubcategory, subcategoriesData, currentTheme }) => {
-  if (!selectedCategory || !subcategoriesData[selectedCategory] || subcategoriesData[selectedCategory].length === 0) {
-    return null;
-  }
-
-  return (
-    <div className="mb-6 border-t border-gray-200  pt-4">
-      <h4 className={`font-medium ${currentTheme.text} ${currentTheme.font} mb-3 capitalize`}>{selectedCategory} Subcategory</h4>
-      <div className="space-y-2">
-        <label className="flex items-center">
-          <input
-            type="radio"
-            name="subcategory"
-            value=""
-            checked={selectedSubcategory === ''}
-            onChange={() => setSubcategory('')}
-            className="mr-2"
-          />        <span className={`text-sm ${currentTheme.text} ${currentTheme.font}`}>All {selectedCategory}</span>
-        </label>
-        {subcategoriesData[selectedCategory].map(subcat => (
-          <label key={subcat} className="flex items-center">
-            <input
-              type="radio"
-              name="subcategory"
-              value={subcat}
-              checked={selectedSubcategory === subcat}
-              onChange={() => setSubcategory(subcat)}
-              className="mr-2"
-            />
-            <span className={`text-sm ${currentTheme.text} ${currentTheme.font} capitalize`}>{subcat.replace('-', ' ')}</span>
-          </label>
-        ))}
-      </div>
-    </div>
-  );
-};
+const FilterIconButton = ({ onClick, children, label }) => (
+  <button
+  onClick={onClick}
+  aria-label={label}
+  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/60 backdrop-blur-sm border border-slate-200 shadow-sm hover:scale-102 active:scale-98 transition"
+  >
+  {children}
+  </button>
+);
 
 const Products = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [showFilters, setShowFilters] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
-  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
-  const [showDiscounted, setShowDiscounted] = useState(searchParams.get('discount') === 'true');
-  const [sortBy, setSortBy] = useState('name-asc');
-  const [showInStock, setShowInStock] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+  // filter/search state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
+  const [showDiscounted, setShowDiscounted] = useState(false);
+  const [showInStock, setShowInStock] = useState(false);
+  const [sortBy, setSortBy] = useState('name-asc');
+
+  // UI state
+  const [filtersOpen, setFiltersOpen] = useState(false); // mobile drawer
   const { currentTheme, changeTheme } = useTheme();
 
+  // derive lists from products
+  const derived = useMemo(() => {
+    const featured = products.filter(p => p.featured);
+    const bestSellers = products.filter(p => p.bestSeller);
+    return { featured, bestSellers };
+  }, []);
+
+  // update theme when category changes (same as your previous logic)
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery) params.set('search', searchQuery);
-    if (selectedCategory) params.set('category', selectedCategory);
-    if (showDiscounted) params.set('discount', 'true');
-    if (selectedSubcategory) params.set('subcategory', selectedSubcategory);
-    setSearchParams(params);
     changeTheme(selectedCategory);
-  }, [searchQuery, selectedCategory, selectedSubcategory, showDiscounted, changeTheme]);
+  }, [selectedCategory, changeTheme]);
 
-  const handleBackToCategory = () => {
-    setSelectedProductId(null);
-  };
+  // filtered & sorted results
+  const filteredAndSorted = useMemo(() => {
+    let list = [...products];
 
-  const filteredAndSortedProducts = useMemo(() => {
-    let filtered = [...products];
-
-    if (selectedProductId) {
-      return filtered.filter(product => product.id === selectedProductId);
-    }
-
-    if (searchQuery) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    // basic search
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      (p.description && p.description.toLowerCase().includes(q)) ||
+      (p.category && p.category.toLowerCase().includes(q))
       );
     }
 
+    // category / subcategory
     if (selectedCategory) {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      list = list.filter(p => p.category === selectedCategory);
     }
     if (selectedSubcategory) {
-      filtered = filtered.filter(product => product.subcategory === selectedSubcategory);
+      list = list.filter(p => p.subcategory === selectedSubcategory);
     }
 
-    filtered = filtered.filter(product =>
-      product.price >= priceRange.min && product.price <= priceRange.max
-    );
+    // price range
+    list = list.filter(p => (p.price >= (priceRange.min || 0) && p.price <= (priceRange.max || Infinity)));
 
-    if (showDiscounted) {
-      filtered = filtered.filter(product => product.discount && product.discount > 0);
-    }
+    // discounted / inStock
+    if (showDiscounted) list = list.filter(p => p.discount && p.discount > 0);
+    if (showInStock) list = list.filter(p => p.inStock);
 
-    if (showInStock) {
-      filtered = filtered.filter(product => product.inStock);
-    }
-
-    filtered.sort((a, b) => {
+    // sorting
+    list.sort((a, b) => {
       switch (sortBy) {
-        case 'name-asc':
-          return a.name.localeCompare(b.name);
-        case 'name-desc':
-          return b.name.localeCompare(a.name);
-        case 'price-asc':
-          return a.price - b.price;
-        case 'price-desc':
-          return b.price - a.price;
-        case 'rating-desc':
-          return b.rating - a.rating;
-        case 'discount-desc':
-          return (b.discount || 0) - (a.discount || 0);
-        default:
-          return 0;
+        case 'name-asc': return a.name.localeCompare(b.name);
+        case 'name-desc': return b.name.localeCompare(a.name);
+        case 'price-asc': return a.price - b.price;
+        case 'price-desc': return b.price - a.price;
+        case 'rating-desc': return (b.rating || 0) - (a.rating || 0);
+        case 'discount-desc': return (b.discount || 0) - (a.discount || 0);
+        default: return 0;
       }
     });
 
-    return filtered;
-  }, [searchQuery, selectedCategory, priceRange, showDiscounted, sortBy, showInStock, selectedProductId, selectedSubcategory]);
+    return list;
+  }, [searchQuery, selectedCategory, selectedSubcategory, priceRange, showDiscounted, showInStock, sortBy]);
 
-  const clearFilters = () => {
+  const clearAll = () => {
     setSearchQuery('');
     setSelectedCategory('');
+    setSelectedSubcategory('');
     setPriceRange({ min: 0, max: 50000 });
     setShowDiscounted(false);
     setShowInStock(false);
     setSortBy('name-asc');
-    setSelectedProductId(null);
-    setSelectedSubcategory('');
   };
 
-  const activeFiltersCount =
-    (searchQuery ? 1 : 0) +
-    (selectedCategory ? 1 : 0) +
-    (selectedSubcategory ? 1 : 0) +
-    (showDiscounted ? 1 : 0) +
-    (showInStock ? 1 : 0) +
-    (priceRange.min > 0 || priceRange.max < 2000 ? 1 : 0);
-
-  
-
-  
-
+  // animations
   const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    hidden: { opacity: 0, y: 6 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.05 } }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
   };
-  
+
+  // helpers for UI
+  const activeFiltersCount =
+  (searchQuery ? 1 : 0) +
+  (selectedCategory ? 1 : 0) +
+  (selectedSubcategory ? 1 : 0) +
+  (showDiscounted ? 1 : 0) +
+  (showInStock ? 1 : 0) +
+  ((priceRange.min > 0 || priceRange.max < 50000) ? 1 : 0);
+
   return (
-    <div className={`${currentTheme.bg} ${currentTheme.text} ${currentTheme.font} min-h-screen antialiased transition-colors duration-500`}>
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className={`text-3xl md:text-4xl font-bold mb-4 ${currentTheme.text}`}>
-            Products
-          </h1>
-          <p className={`${currentTheme.lightText}`}>
-            {"Discover our complete range of computer accessories, gaming gear, and professional equipment"}
-          </p>
-        </div>
+    <div className={`${currentTheme.bg} ${currentTheme.text} ${currentTheme.font} min-h-screen transition-colors duration-300`}>
+    <div className="container mx-auto px-4 py-10">
 
-        <div className="flex flex-col-1 lg:flex-row  mb-8 ml-0 w-100 xl:w-full">
-              <div className="flex-1 relative">
-                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${currentTheme.lightText}`} />
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={` xl:w-full pl-10 pr-4 py-3  border-3 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
-                />
-              </div>
-          </div>
+    {/* Header */}
+    <div className="mb-6">
+    <h1 className="text-3xl md:text-4xl font-bold">Products</h1>
+    <p className="text-sm text-slate-500 mt-1">Explore curated gear — quick filters make discovery easy.</p>
+    </div>
 
+    {/* Top controls: search + small actions */}
+    <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
+    <div className="relative flex-1">
+    <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${currentTheme.lightText}`} />
+    <input
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    placeholder="Search products, categories or features..."
+    className={`w-full pl-10 pr-4 py-3 rounded-lg border ${currentTheme.inputBorder} ${currentTheme.inputBg} focus:outline-none focus:ring-2 focus:ring-blue-500 transition`}
+    />
+    </div>
 
-          <div className="flex gap-3">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className={`px-1 py-2 w-29 xl:w-45 h-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
-            >
-              {sortOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+    <div className="flex items-center gap-2">
+    {/* desktop filter summary button */}
+    <div className="hidden sm:flex items-center gap-2">
+    <select
+    value={sortBy}
+    onChange={(e) => setSortBy(e.target.value)}
+    className={`px-3 py-2 rounded-lg border ${currentTheme.inputBorder} ${currentTheme.inputBg} focus:outline-none`}
+    aria-label="Sort products"
+    >
+    {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+    </select>
+    </div>
 
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters(!showFilters)}
-              className={`relative flex w-27 xl:w-30 h-10 ${currentTheme.inputBg} border-3 border-black ${currentTheme.inputBorder} transition-colors duration-500`}
-            >
-              <SlidersHorizontal className={`w-5 h-5 mr-1 lg:mr-2 xl:mr-2 ${currentTheme.text}`} />
-              <span className={currentTheme.text}>{(showFilters===false)?"Filters":"Hide"}</span>
-              {activeFiltersCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center mb-10">
-                  {activeFiltersCount}
-                </span>
-              )}
-            </Button>
-          
-        </div>
+    {/* mobile: open filters drawer */}
+    <div className="flex items-center gap-2">
+    <FilterIconButton onClick={() => setFiltersOpen(true)} label="Open filters">
+    <SlidersHorizontal className="w-4 h-4" />
+    <span className="hidden sm:inline text-sm">Filters</span>
+    {activeFiltersCount > 0 && (
+      <span className="ml-2 inline-flex items-center justify-center w-5 h-5 text-xs rounded-full bg-red-500 text-white">{activeFiltersCount}</span>
+    )}
+    </FilterIconButton>
+    </div>
+    </div>
+    </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <motion.div
-            initial={false}
-            animate={{
-              width: showFilters ? 'auto' : 0,
-              opacity: showFilters ? 1 : 0
-            }}
-            className={`lg:w-64 ${showFilters ? 'block' : 'hidden lg:block'} space-y-6`}
-          >
-            <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.9 }}
-                className={`p-6 rounded-lg shadow-md w-60 transition-colors duration-500 ${currentTheme.inputBg}`}
-            >
-              <div className="flex items-center justify-between mb-4 gap-2">
-                <h3 className={`text-lg font-semibold ${currentTheme.text}`}>Filters</h3>
-                {activeFiltersCount > 0 && (
-                  <button
-                    onClick={clearFilters}
-                    className={`text-red-700 text-sm font-bold  flex items-center ${currentTheme.accent}`}
-                  >
-                    <Trash className="w-4 h-4 mr-1" />
-                    Clear All
-                  </button>
-                )}
-              </div>
+    {/* Category Bar */}
+    <div className="mb-4">
+    <div className="flex gap-3 overflow-x-auto pb-2">
+    {CATEGORIES.map(cat => {
+      const active = cat.value === selectedCategory;
+      return (
+        <button
+        key={cat.value || 'all'}
+        onClick={() => {
+          setSelectedCategory(cat.value);
+          setSelectedSubcategory('');
+        }}
+        className={`whitespace-nowrap px-4 py-2 rounded-full border ${active ? 'bg-blue-600 text-white' : 'bg-white text-slate-700'} hover:scale-102 transition`}
+        aria-pressed={active}
+        >
+        {cat.label}
+        </button>
+      );
+    })}
+    </div>
 
-              <div className="mb-6">
-                <h4 className={`font-medium mb-3 ${currentTheme.text}`}>Category</h4>
-                <div className="space-y-2">
-                  {categories.map(category => (
-                    <label key={category.value} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="category"
-                        value={category.value}
-                        checked={selectedCategory === category.value}
-                        onChange={(e) => {
-                          setSelectedCategory(e.target.value);
-                          setSelectedSubcategory('');
-                          setSelectedProductId(null);
-                        }}
-                        className="mr-2"
-                      />
-                      <span className={`text-sm ${currentTheme.text}`}>{category.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <SubcategoryFilter
-                selectedCategory={selectedCategory}
-                selectedSubcategory={selectedSubcategory}
-                setSubcategory={setSelectedSubcategory}
-                subcategoriesData={subcategories}
-                currentTheme={currentTheme}
-              />
-
-              <div className="mb-6">
-                <h4 className={`font-medium mb-3 ${currentTheme.text}`}>Price Range</h4>
-                <div className="space-y-3">
-                  <div className="flex gap-2">
-                    <input
-                      type="number"
-                      placeholder="Min"
-                      value={priceRange.min}
-                      onChange={(e) => setPriceRange(prev => ({ ...prev, min: Number(e.target.value) }))}
-                      className={`w-full px-3 py-2 border rounded text-sm ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
-                    />
-                    <input
-                      type="number"
-                      placeholder="Max"
-                      value={priceRange.max}
-                      onChange={(e) => setPriceRange(prev => ({ ...prev, max: Number(e.target.value) }))}
-                      className={`w-full px-3 py-2 border rounded text-sm ${currentTheme.inputBg} ${currentTheme.text} ${currentTheme.inputBorder} transition-colors duration-500`}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={showDiscounted}
-                    onChange={(e) => setShowDiscounted(e.target.checked)}
-                    className="mr-2"
-                  />
-                  <span className={`text-sm ${currentTheme.text}`}>Show Discounted Only</span>
-                </label>
-
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={showInStock}
-                    onChange={(e) => setShowInStock(e.target.checked)}
-                    className="mr-2"
-                  />
-                  <span className={`text-sm ${currentTheme.text}`}>In Stock Only</span>
-                </label>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="flex-1"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-          >
-            <div className={`mb-4 flex flex-col sm:flex-row items-center justify-between`}>
-              <p className={currentTheme.lightText}>
-                {selectedProductId ? (
-                  `1 product selected`
-                ) : (
-                  `${filteredAndSortedProducts.length} product${filteredAndSortedProducts.length !== 1 ? 's' : ''} found`
-                )}
-              </p>
-              {selectedProductId && (
-                <Button variant="link" onClick={handleBackToCategory} className={`mt-2 sm:mt-0 ${currentTheme.accent}`}>
-                  <ArrowLeft className="w-4 h-4 mr-1" /> Back to All Products
-                </Button>
-              )}
-            </div>
-
-            {filteredAndSortedProducts.length === 0 ? (
-              <div className={`text-center py-16 ${currentTheme.text}`}>
-                <div className={`w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center ${currentTheme.inputBg}`}>
-                  <Search className={`w-12 h-12 ${currentTheme.lightText}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">No products found</h3>
-                <p className={`${currentTheme.lightText} mb-6`}>
-                  {"Try adjusting your filters or search terms to find what you're looking for."}
-                </p>
-                <Button onClick={clearFilters}>Clear All Filters</Button>
-              </div>
-            ) : (
-              <motion.div
-                className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {filteredAndSortedProducts.map((product, index) => (
-                  <motion.div key={product.id} variants={itemVariants}>
-                    <ProductCard product={product} index={index} currentTheme={currentTheme} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
+    {/* Subcategory chips (when category selected and subcats exist) */}
+    {selectedCategory && SUBCATS[selectedCategory] && (
+      <div className="flex gap-2 mt-3 flex-wrap">
+      <button
+      onClick={() => setSelectedSubcategory('')}
+      className={`px-3 py-1 rounded-md text-sm border ${selectedSubcategory === '' ? 'bg-slate-900 text-white' : 'bg-white text-slate-700'}`}
+      >
+      All {selectedCategory}
+      </button>
+      {SUBCATS[selectedCategory].map(sc => (
+        <button
+        key={sc}
+        onClick={() => setSelectedSubcategory(sc)}
+        className={`px-3 py-1 rounded-md text-sm border ${selectedSubcategory === sc ? 'bg-slate-900 text-white' : 'bg-white text-slate-700'} capitalize`}
+        >
+        {sc.replace('-', ' ')}
+        </button>
+      ))}
       </div>
+    )}
+    </div>
+
+    <div className="lg:flex lg:gap-8">
+    {/* Sidebar (desktop) */}
+    <aside className="hidden lg:block lg:w-72">
+    <div className="p-5 rounded-lg shadow-sm bg-white">
+    <div className="flex items-center justify-between mb-4">
+    <h3 className="font-semibold">Filters</h3>
+    <button onClick={clearAll} className="text-sm text-red-600 inline-flex items-center gap-2">
+    <Trash className="w-4 h-4" /> Clear
+    </button>
+    </div>
+
+    {/* Category list (kept for accessibility but secondary) */}
+    <div className="mb-4">
+    <h4 className="text-sm font-medium mb-2">Category</h4>
+    <div className="flex flex-col gap-2">
+    {CATEGORIES.map(cat => (
+      <label key={cat.value} className="flex items-center gap-2 text-sm">
+      <input
+      type="radio"
+      checked={selectedCategory === cat.value}
+      onChange={() => {
+        setSelectedCategory(cat.value);
+        setSelectedSubcategory('');
+      }}
+      className="mr-2"
+      />
+      <span>{cat.label}</span>
+      </label>
+    ))}
+    </div>
+    </div>
+
+    {/* Price */}
+    <div className="mb-4">
+    <h4 className="text-sm font-medium mb-2">Price</h4>
+    <div className="flex gap-2">
+    <input
+    type="number"
+    value={priceRange.min}
+    onChange={(e) => setPriceRange(p => ({ ...p, min: Number(e.target.value || 0) }))}
+    className="px-2 py-2 rounded-md border w-1/2"
+    placeholder="Min"
+    />
+    <input
+    type="number"
+    value={priceRange.max}
+    onChange={(e) => setPriceRange(p => ({ ...p, max: Number(e.target.value || 50000) }))}
+    className="px-2 py-2 rounded-md border w-1/2"
+    placeholder="Max"
+    />
+    </div>
+    </div>
+
+    {/* toggles */}
+    <div className="space-y-2">
+    <label className="flex items-center gap-2 text-sm">
+    <input type="checkbox" checked={showDiscounted} onChange={(e) => setShowDiscounted(e.target.checked)} />
+    <span>Discounted only</span>
+    </label>
+    <label className="flex items-center gap-2 text-sm">
+    <input type="checkbox" checked={showInStock} onChange={(e) => setShowInStock(e.target.checked)} />
+    <span>In stock only</span>
+    </label>
+    </div>
+    </div>
+    </aside>
+
+    {/* Main column */}
+    <main className="flex-1">
+    {/* summary row */}
+    <div className="flex items-center justify-between mb-4">
+    <p className="text-sm text-slate-600">
+    {filteredAndSorted.length} product{filteredAndSorted.length !== 1 ? 's' : ''} found
+    </p>
+
+    <div className="flex items-center gap-3">
+    <div className="hidden sm:block">
+    <select
+    value={sortBy}
+    onChange={(e) => setSortBy(e.target.value)}
+    className="px-3 py-2 rounded-md border"
+    aria-label="Sort"
+    >
+    {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+    </select>
+    </div>
+
+    <button
+    onClick={clearAll}
+    className="px-3 py-2 rounded-md border bg-white text-sm"
+    >
+    Reset
+    </button>
+    </div>
+    </div>
+
+    {/* Product grid */}
+    {filteredAndSorted.length === 0 ? (
+      <div className="py-20 text-center">
+      <div className="inline-flex items-center justify-center w-28 h-28 rounded-full bg-white shadow mb-4">
+      <Search className="w-10 h-10 text-slate-400" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">No products found</h3>
+      <p className="text-sm text-slate-500">Try different keywords or clear filters.</p>
+      </div>
+    ) : (
+      <motion.div
+      className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      >
+      {filteredAndSorted.map((prod, i) => (
+        <motion.div key={prod.id} variants={itemVariants} whileHover={{ y: -6 }} className="relative">
+        {/* wrapper to add quick actions overlay */}
+        <div className="relative rounded-lg overflow-hidden">
+        <ProductCard product={prod} index={i} currentTheme={currentTheme} />
+        {/* overlay shown on hover (tailwind group-hover would need group parent; we use absolute + opacity transition) */}
+        <div className="absolute inset-0 flex items-end justify-center p-3 pointer-events-none">
+        <div className="opacity-0 hover:opacity-100 pointer-events-auto transition-opacity duration-200 transform translate-y-2 hover:translate-y-0">
+        <div className="flex gap-2">
+        <button
+        className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white shadow text-sm"
+        aria-label={`View ${prod.name}`}
+        onClick={() => {
+          // prefer navigating to product detail route — placeholder
+          window.location.href = `/products/${prod.slug || prod.id}`;
+        }}
+        >
+        <Eye className="w-4 h-4" /> View
+        </button>
+        <button
+        className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 text-white shadow text-sm"
+        aria-label={`Add ${prod.name} to cart`}
+        onClick={() => {
+          // placeholder add to cart action
+          alert(`${prod.name} added to cart (demo)`);
+        }}
+        >
+        <ShoppingCart className="w-4 h-4" /> Add
+        </button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </motion.div>
+      ))}
+      </motion.div>
+    )}
+    </main>
+    </div>
+    </div>
+
+    {/* Mobile Filters Drawer */}
+    <motion.div
+    initial={{ x: '100%' }}
+    animate={filtersOpen ? { x: 0 } : { x: '100%' }}
+    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+    className={`fixed top-0 right-0 bottom-0 w-full max-w-[420px] bg-white shadow-lg z-50 lg:hidden`}
+    style={{ display: filtersOpen ? undefined : undefined }}
+    aria-hidden={!filtersOpen}
+    >
+    <div className="p-4 border-b flex items-center justify-between">
+    <h3 className="font-semibold">Filters</h3>
+    <button onClick={() => setFiltersOpen(false)} aria-label="Close filters">
+    <X className="w-5 h-5" />
+    </button>
+    </div>
+
+    <div className="p-4 space-y-4 overflow-y-auto h-[calc(100vh-64px)]">
+    <div className="space-y-2">
+    <h4 className="text-sm font-medium">Category</h4>
+    <div className="flex flex-col gap-2">
+    {CATEGORIES.map(cat => (
+      <label key={cat.value} className="flex items-center gap-2">
+      <input
+      type="radio"
+      checked={selectedCategory === cat.value}
+      onChange={() => {
+        setSelectedCategory(cat.value);
+        setSelectedSubcategory('');
+      }}
+      className="mr-2"
+      />
+      <span>{cat.label}</span>
+      </label>
+    ))}
+    </div>
+    </div>
+
+    {/* subcategories in drawer */}
+    {selectedCategory && SUBCATS[selectedCategory] && (
+      <div className="space-y-2">
+      <h4 className="text-sm font-medium">Subcategory</h4>
+      <div className="flex flex-wrap gap-2">
+      <button onClick={() => setSelectedSubcategory('')} className={`px-3 py-1 rounded-md text-sm border ${selectedSubcategory === '' ? 'bg-slate-900 text-white' : 'bg-white'}`}>All</button>
+      {SUBCATS[selectedCategory].map(sc => (
+        <button key={sc} onClick={() => setSelectedSubcategory(sc)} className={`px-3 py-1 rounded-md text-sm border ${selectedSubcategory === sc ? 'bg-slate-900 text-white' : 'bg-white'}`}>{sc.replace('-', ' ')}</button>
+      ))}
+      </div>
+      </div>
+    )}
+
+    {/* price */}
+    <div>
+    <h4 className="text-sm font-medium mb-2">Price</h4>
+    <div className="flex gap-2">
+    <input type="number" value={priceRange.min} onChange={(e) => setPriceRange(p => ({ ...p, min: Number(e.target.value || 0) }))} className="w-1/2 px-2 py-2 rounded-md border" placeholder="Min" />
+    <input type="number" value={priceRange.max} onChange={(e) => setPriceRange(p => ({ ...p, max: Number(e.target.value || 50000) }))} className="w-1/2 px-2 py-2 rounded-md border" placeholder="Max" />
+    </div>
+    </div>
+
+    <div className="space-y-2">
+    <label className="flex items-center gap-2"><input type="checkbox" checked={showDiscounted} onChange={(e) => setShowDiscounted(e.target.checked)} /> Discounted only</label>
+    <label className="flex items-center gap-2"><input type="checkbox" checked={showInStock} onChange={(e) => setShowInStock(e.target.checked)} /> In stock only</label>
+    </div>
+
+    <div className="flex gap-2">
+    <button onClick={() => { clearAll(); setFiltersOpen(false); }} className="flex-1 px-4 py-2 rounded-md border">Reset</button>
+    <button onClick={() => setFiltersOpen(false)} className="flex-1 px-4 py-2 rounded-md bg-blue-600 text-white">Apply</button>
+    </div>
+    </div>
+    </motion.div>
+
+    {/* overlay behind drawer */}
+    {filtersOpen && (
+      <div onClick={() => setFiltersOpen(false)} className="fixed inset-0 bg-black/30 z-40 lg:hidden" />
+    )}
     </div>
   );
 };
 
 export default Products;
-
-

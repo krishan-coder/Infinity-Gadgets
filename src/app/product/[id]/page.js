@@ -129,7 +129,7 @@ const ProductDetail = () => {
                     currentImageIndex === index ? `${currentTheme.accent.replace('text-', 'border-')}` : currentTheme.inputBorder
                   }`}
                 >
-                  <Image src={image} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
+                  <Image width={80} height={80} src={image} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

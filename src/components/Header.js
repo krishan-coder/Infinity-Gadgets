@@ -87,6 +87,16 @@ const Header = () => {
               >
                 Products
               </Link>
+              <Link
+                href="/wishlist"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  isActive('/wishlist')
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-blue-500'
+                }`}
+              >
+                Wishlist
+              </Link>
 
               <Link
                 href="/pc-builder"
@@ -212,6 +222,13 @@ const Header = () => {
                 className="text-zinc-400 font-semibold hover:text-blue-600 py-2"
               >
                 PC Builder
+              </Link>
+              <Link
+                href="/wishlist"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-zinc-400 font-semibold hover:text-blue-600 py-2"
+              >
+                Wishlist
               </Link>
               {user?.role === 'admin' && (
                 <Link
