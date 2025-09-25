@@ -12,7 +12,7 @@ export default function QuickViewModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-50 backdrop-blur-sm">
       <div className="bg-white rounded-lg shadow-2xl overflow-hidden max-w-4xl w-11/12 mx-4">
         <div className="relative flex flex-col md:flex-row">
           <button

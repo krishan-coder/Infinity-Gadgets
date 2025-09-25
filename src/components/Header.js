@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link'; 
 import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Search, ShoppingCart, User, Menu, X, Monitor } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X, Monitor, Home } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { signOut } from  'next-auth/react';
@@ -127,8 +127,8 @@ const Header = () => {
           {/* User Actions */}
           <div className="flex items-center space-x-4">
             {/* Cart */}
-            <Link href="/cart" className="relative p-2 text-white hover:text-blue-600 transition-colors">
-              <ShoppingCart className="h-6 w-6" />
+            <Link href="/" className="relative p-2 text-white hover:text-blue-600 transition-colors">
+              <Home className="h-6 w-6" />
               {getTotalItems() > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {getTotalItems()}

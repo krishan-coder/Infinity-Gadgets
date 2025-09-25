@@ -129,7 +129,7 @@ export default function Home() {
   const [newsletterState, setNewsletterState] = useState('idle'); // 'idle' | 'error' | 'success'
   const [isAutoplaying, setIsAutoplaying] = useState(true);
 
-  const sliderSettings = {
+  const sliderSettings = useState({
    dots: true,
     infinite: true,
     speed: 600,
@@ -144,7 +144,7 @@ export default function Home() {
       { breakpoint: 900, settings: { slidesToShow: 2 } },
       { breakpoint: 520, settings: { slidesToShow: 1 } },
     ],
-};
+});
 
   /* Newsletter basic handler (client-side only) */
   function handleSubscribe(e) {

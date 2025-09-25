@@ -24,6 +24,9 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
   const [wishlistState, setWishlist] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
   const [hovered, setHovered] = useState(false);
+  
+
+  
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -59,6 +62,8 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
       className={`relative rounded-2xl shadow-md overflow-hidden group bg-white transition-all duration-500 ${currentTheme.inputBg}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onTouchStart={() => setHovered(true)} // for mobile tap
+      onTouchEnd={() => setHovered(false)} // for mobile tap
     >
       {/* Product Image */}
       <div className="relative w-full">
@@ -99,31 +104,38 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           </div>
         )}
 
-        {/* Floating Action Buttons */}
-        <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    whileHover={{ opacity: 1, y: 0 }} // desktop hover
-    animate={{ opacity: 1 }} // always visible on mobile
-    className="absolute top-3 right-3 flex flex-col gap-2 sm:opacity-0 sm:group-hover:opacity-100"
+ {/* Floating Action Buttons */}
+<motion.div
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
+  whileHover={{ opacity: 1, y: 0 }} // desktop hover
+  transition={{ duration: 0.3 }}
+  className="
+    absolute top-3 right-3 flex flex-col gap-2
+    opacity-0 group-hover:opacity-100
+    pointer-events-auto
+    mt-5
+  " // mobile tap toggle
+>
+  <button
+    onClick={handleQuickView}
+    className="p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
+    aria-label="Quick View"
   >
-    <button
-      onClick={handleQuickView}
-      className="p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
-      aria-label="Quick View"
-    >
-      <Eye className="w-4 h-4 text-gray-700" />
-    </button>
+    <Eye className="w-4 h-4 text-gray-700" />
+  </button>
 
-    <button
-      onClick={handleWishlist}
-      className={`p-2 rounded-full bg-white shadow hover:bg-gray-100 transition ${
-        wishlistState ? "text-red-600" : "text-gray-700"
-      }`}
-      aria-label="Wishlist"
-    >
-      <Heart className={`w-4 h-4 ${wishlistState ? "fill-red-600" : ""}`} />
-    </button>
-  </motion.div>
+  <button
+    onClick={handleWishlist}
+    className={`p-2 rounded-full bg-white shadow hover:bg-gray-100 transition ${
+      wishlistState ? "text-red-600" : "text-gray-700"
+    }`}
+    aria-label="Wishlist"
+  >
+    <Heart className={`w-4 h-4 ${wishlistState ? "fill-red-600" : ""}`} />
+  </button>
+</motion.div>
+
 </div>
 
       {/* Product Details */}

@@ -25,21 +25,16 @@ const handler = NextAuth({
           await connectDB();
 
           console.log("Finding user:", credentials.email);
-          //const user = await User.findOne({ email: credentials.email }).select("+password");
-          const user = {
-            id:69,
-            email:"krishansingh@gmail.com",
-            role :'admin',
-            password : 'password'
-          }
+          const user = await User.findOne({ email: credentials.email }).select("+password");
+          
 
           if (!user) {
             console.log("User not found");
             throw new Error("User not found");
           }
 
-          //const isValid = await compare(credentials.password, user.password);
-          const isValid = true;
+          const isValid = await compare(credentials.password, user.password);
+          
           if (!isValid) {
             console.log("Invalid password");
             throw new Error("Invalid email or password");
