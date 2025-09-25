@@ -58,8 +58,10 @@ const FilterIconButton = ({ onClick, children, label }) => (
 
 const Products = () => {
   // filter/search state
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(useSearchParams().get('category') || '');
+  const [selectedCategory, setSelectedCategory] = useState(category || '');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
   const [showDiscounted, setShowDiscounted] = useState(false);
@@ -76,6 +78,14 @@ const Products = () => {
     const bestSellers = products.filter(p => p.bestSeller);
     return { featured, bestSellers };
   }, []);
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category) {
+      setSelectedCategory(category);
+      setSelectedSubcategory("");
+    }
+  }, [searchParams]);
 
   // update theme when category changes (same as your previous logic)
   useEffect(() => {

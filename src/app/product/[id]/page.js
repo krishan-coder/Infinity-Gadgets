@@ -24,19 +24,17 @@ const ProductDetail = () => {
   const [activeTab, setActiveTab] = useState('description');
   const { currentTheme, changeTheme } = useTheme();
 
-  const product = products.find(p => p.id === id);
+  const product = products.find(p => p.id === id || p.id === Number(id));
 
   useEffect(() => {
-    if (product && product.category) {
+    if (product?.category) {
       changeTheme(product.category);
     } else {
       changeTheme('');
     }
-    animate(window.scrollY, 0, {
-      duration: 0.5,
-      onUpdate: (latest) => window.scrollTo(0, latest),
-    });
-  }, [product, changeTheme, id]);
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [product, changeTheme]);
 
   if (!product) {
     return (
@@ -55,13 +53,9 @@ const ProductDetail = () => {
     addToCart(product, quantity);
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
-  };
+  const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
-  };
 
 
   return (
