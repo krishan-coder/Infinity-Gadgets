@@ -141,9 +141,13 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
       {/* Product Details */}
       <div className="p-4">
         <Link href={`/product/${product.id}`}>
-          <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
-            {product.name}
-          </h3>
+          <div className="mb-2 h-12 overflow-hidden relative">
+            <div className="whitespace-nowrap overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+              <h3 className="font-semibold text-gray-900 inline-block">
+                {product.name}
+              </h3>
+            </div>
+          </div>
         </Link>
 
         {/* Rating */}
