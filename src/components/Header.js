@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link'; 
 import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Search, ShoppingCart, User, Menu, X, Monitor } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X, Monitor, Home } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { signOut } from  'next-auth/react';
@@ -87,6 +87,16 @@ const Header = () => {
               >
                 Products
               </Link>
+              <Link
+                href="/wishlist"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  isActive('/wishlist')
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-blue-500'
+                }`}
+              >
+                Wishlist
+              </Link>
 
               <Link
                 href="/pc-builder"
@@ -117,8 +127,8 @@ const Header = () => {
           {/* User Actions */}
           <div className="flex items-center space-x-4">
             {/* Cart */}
-            <Link href="/cart" className="relative p-2 text-white hover:text-blue-600 transition-colors">
-              <ShoppingCart className="h-6 w-6" />
+            <Link href="/" className="relative p-2 text-white hover:text-blue-600 transition-colors">
+              <Home className="h-6 w-6" />
               {getTotalItems() > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {getTotalItems()}
@@ -212,6 +222,13 @@ const Header = () => {
                 className="text-zinc-400 font-semibold hover:text-blue-600 py-2"
               >
                 PC Builder
+              </Link>
+              <Link
+                href="/wishlist"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-zinc-400 font-semibold hover:text-blue-600 py-2"
+              >
+                Wishlist
               </Link>
               {user?.role === 'admin' && (
                 <Link
