@@ -10,6 +10,7 @@ import { useCart } from '../contexts/CartContext';
 import { signOut } from  'next-auth/react';
 import '../app/globals.css'; 
 
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -128,7 +129,7 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* Cart */}
             <Link href="/" className="relative p-2 text-white hover:text-blue-600 transition-colors">
-              <Home className="h-6 w-6" />
+              <ShoppingCart className="h-6 w-6" />
               {getTotalItems() > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {getTotalItems()}

@@ -167,24 +167,34 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           </span>
         </div>
 
-        {/* Price + Stock */}
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <span className="text-xl font-bold text-gray-900">
-              ${product.price.toLocaleString()}
-            </span>
-            {product.originalPrice && (
-              <span className="text-sm text-gray-500 line-through ml-2">
-                ${product.originalPrice.toLocaleString()}
-              </span>
-            )}
-          </div>
-          {product.inStock && (
-            <span className="text-xs text-green-600">
-              {product.stockCount} in stock
-            </span>
-          )}
-        </div>
+        <div className="mb-3">
+  {/* Price and Discount */}
+  <div className="flex items-center gap-2">
+    <span className="text-xl font-bold text-gray-900">
+      ${product.price.toLocaleString()}
+    </span>
+    {product.originalPrice && (
+      <span className="text-sm text-gray-500 line-through">
+        ${product.originalPrice.toLocaleString()}
+      </span>
+    )}
+    {product.discount && (
+      <span className="text-sm text-red-500 font-semibold">
+        -{product.discount}%
+      </span>
+    )}
+  </div>
+
+  {/* Stock Info */}
+  {product.inStock && (
+    <div>
+      <span className="text-xs text-green-600">
+        {product.stockCount} in stock
+      </span>
+    </div>
+  )}
+</div>
+
 
         {/* Add to Cart */}
         <Button

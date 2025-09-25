@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { Monitor , ShoppingBag, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Heart, ShoppingCart, User } from 'lucide-react';
+import { Monitor , ShoppingBag, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Heart, ShoppingCart, Home } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -144,9 +144,9 @@ const Footer = () => {
           </Link>
 
           {/* Login/Profile */}
-          <Link href="/cart" className="flex flex-col items-center justify-center hover:text-blue-400 transition-colors">
-            <ShoppingCart className="w-6 h-6 mb-1" />
-            <span className="text-xs">cart</span>
+          <Link href="/" className="flex flex-col items-center justify-center hover:text-blue-400 transition-colors">
+            <Home className="w-6 h-6 mb-1" />
+            <span className="text-xs">Home</span>
           </Link>
         </div>
       </nav>

@@ -1,6 +1,7 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, use } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Search,
   Trash,
@@ -58,7 +59,7 @@ const FilterIconButton = ({ onClick, children, label }) => (
 const Products = () => {
   // filter/search state
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(useSearchParams().get('category') || '');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 50000 });
   const [showDiscounted, setShowDiscounted] = useState(false);
@@ -227,24 +228,34 @@ const Products = () => {
 
     {/* Subcategory chips (when category selected and subcats exist) */}
     {selectedCategory && SUBCATS[selectedCategory] && (
-      <div className="flex gap-2 mt-3 flex-wrap">
+  <div className="mt-3">
+    <div className="flex gap-2 overflow-x-auto pb-2">
       <button
-      onClick={() => setSelectedSubcategory('')}
-      className={`px-3 py-1 rounded-md text-sm border ${selectedSubcategory === '' ? 'bg-slate-900 text-white' : 'bg-white text-slate-700'}`}
+        onClick={() => setSelectedSubcategory('')}
+        className={`whitespace-nowrap px-3 py-1 rounded-md text-sm border ${
+          selectedSubcategory === ''
+            ? 'bg-slate-900 text-white'
+            : 'bg-white text-slate-700'
+        }`}
       >
-      All {selectedCategory}
+        All {selectedCategory}
       </button>
-      {SUBCATS[selectedCategory].map(sc => (
+      {SUBCATS[selectedCategory].map((sc) => (
         <button
-        key={sc}
-        onClick={() => setSelectedSubcategory(sc)}
-        className={`px-3 py-1 rounded-md text-sm border ${selectedSubcategory === sc ? 'bg-slate-900 text-white' : 'bg-white text-slate-700'} capitalize`}
+          key={sc}
+          onClick={() => setSelectedSubcategory(sc)}
+          className={`whitespace-nowrap px-3 py-1 rounded-md text-sm border ${
+            selectedSubcategory === sc
+              ? 'bg-slate-900 text-white'
+              : 'bg-white text-slate-700'
+          } capitalize`}
         >
-        {sc.replace('-', ' ')}
+          {sc.replace('-', ' ')}
         </button>
       ))}
-      </div>
-    )}
+    </div>
+  </div>
+)}
     </div>
 
     <div className="lg:flex lg:gap-8">
