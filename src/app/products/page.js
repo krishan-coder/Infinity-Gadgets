@@ -29,13 +29,37 @@ const CATEGORIES = [
 { value: 'gaming', label: 'Gaming' },
 { value: 'components', label: 'Components' },
 { value: 'accessories', label: 'Accessories' },
-{ value: 'commercial', label: 'Commercial' }
+{ value: 'commercial', label: 'Commercial' },
+{ value: 'diy-cooling', label: 'DIY Cooling' },
+{ value: 'processor', label: 'Processor' },
+{ value: 'motherboard', label: 'Motherboard' },
+{ value: 'graphics-card', label: 'Graphics Card' },
+{ value: 'ram', label: 'RAM' },
+{ value: 'storage', label: 'Storage' },
+{ value: 'smps', label: 'SMPS' },
+{ value: 'cabinet', label: 'Cabinet' },
+{ value: 'peripherals', label: 'Peripherals' },
+{ value: 'laptop', label: 'Laptop' },
+{ value: 'monitor', label: 'Monitor' },
+{ value: 'cpu-cooler', label: 'CPU Cooler' }
 ];
 
 const SUBCATS = {
   gaming: ['keyboard', 'mouse', 'headset', 'mousepad'],
   components: ['monitor', 'cooler'],
   accessories: ['docking-station', 'webcam'],
+  "diy-cooling": ["liquid cooling kit", "coolant", "fitting", "tube", "accessory"],
+  "processor": [ "intel", "amd" ],
+  "motherboard": [ "intel motherboard", "amd motherboard" ],
+  "graphics-card": [ "nvidia", "amd" ],
+  "ram": [ "ddr4", "ddr5" ],
+  "storage": [ "ssd", "hdd" ],
+  "smps": [ "650w", "750w", "850w" ],
+  "cabinet": [ "atx", "micro atx" ],
+  "peripherals": [ "keyboard", "mouse", "headset" ],
+  "laptop": [ "gaming laptop", "business laptop" ],
+  "monitor": [ "24 inch", "27 inch", "32 inch" ],
+  "cpu-cooler": [ "air cooler", "liquid cooler" ]
 };
 
 const SORT_OPTIONS = [
@@ -82,16 +106,17 @@ const Products = () => {
 
   useEffect(() => {
     const category = searchParams.get("category");
+    const subcategory = searchParams.get("subcategory");
     if (category) {
       setSelectedCategory(category);
-      setSelectedSubcategory("");
+      setSelectedSubcategory(subcategory || "");
     }
   }, [searchParams]);
 
   // update theme when category changes (same as your previous logic)
-  useEffect(() => {
-    changeTheme(selectedCategory);
-  }, [selectedCategory, changeTheme]);
+  // useEffect(() => {
+  //   changeTheme(selectedCategory);
+  // }, [selectedCategory, changeTheme]);
 
   // filtered & sorted results
   const filteredAndSorted = useMemo(() => {
@@ -189,6 +214,7 @@ const Products = () => {
     className={`w-full pl-10 pr-4 py-3 rounded-lg border ${currentTheme.inputBorder} ${currentTheme.inputBg} focus:outline-none focus:ring-2 focus:ring-blue-500 transition`}
     />
     </div>
+    
 
     <div className="flex items-center gap-2">
     {/* desktop filter summary button */}
@@ -340,9 +366,7 @@ const Products = () => {
     <main className="flex-1">
     {/* summary row */}
     <div className="flex items-center justify-between mb-4">
-    <p className="text-sm text-slate-600">
-    {filteredAndSorted.length} product{filteredAndSorted.length !== 1 ? 's' : ''} found
-    </p>
+   
 
     <div className="flex items-center gap-3">
     <div className="hidden sm:block">
@@ -356,12 +380,47 @@ const Products = () => {
     </select>
     </div>
 
-    <button
+   {/* Quick filters row for mobile */}
+<div className="flex flex-wrap gap-2 mb-4 lg:hidden overflow-x-auto">
+  {/* In Stock */}
+  <button
+    onClick={() => setShowInStock(!showInStock)}
+    className={`px-3 py-1 rounded-full border text-sm ${
+      showInStock ? "bg-blue-600 text-white" : "bg-white text-slate-700"
+    }`}
+  >
+    In Stock
+  </button>
+
+  {/* Discounted */}
+  <button
+    onClick={() => setShowDiscounted(!showDiscounted)}
+    className={`px-3 py-1 rounded-full border text-sm ${
+      showDiscounted ? "bg-blue-600 text-white" : "bg-white text-slate-700"
+    }`}
+  >
+    Discounted
+  </button>
+
+  {/* Price Range (just show current min–max) */}
+  <button
+    onClick={() => setFiltersOpen(true)}
+    className="px-3 py-1 rounded-full border text-sm bg-white text-slate-700"
+  >
+    ₹{priceRange.min} – ₹{priceRange.max}
+  </button>
+
+
+  {/* Reset */}
+  <button
     onClick={clearAll}
-    className="px-3 py-2 rounded-md border bg-white text-sm"
-    >
+    className="px-3 py-1 rounded-full border text-sm bg-red-500 text-white"
+  >
     Reset
-    </button>
+  </button>
+  
+</div>
+
     </div>
     </div>
 
