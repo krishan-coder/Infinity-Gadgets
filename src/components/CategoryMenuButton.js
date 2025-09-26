@@ -146,31 +146,31 @@ const CATEGORY_DATA = [
       {
         title: 'AMD GPU',
         items: [
-          { name: 'RX 9000 Series', href: '/products?gpu=rx9000' },
-          { name: 'RX 7000 Series', href: '/products?gpu=rx7000' },
-          { name: 'RX 6000 Series', href: '/products?gpu=rx6000' },
+          { name: 'RX 9000 Series', href: '/products?category=gpu&model=rx9000' },
+          { name: 'RX 7000 Series', href: '/products?category=gpu&model=rx7000' },
+          { name: 'RX 6000 Series', href: '/products?category=gpu&model=rx6000' },
         ]
       },
       {
         title: 'NVIDIA GPU',
         items: [
-          { name: 'RTX 50 Series', href: '/products?gpu=rtx50' },
-          { name: 'RTX 40 Series', href: '/products?gpu=rtx40' },
-          { name: 'RTX 30 Series', href: '/products?gpu=rtx30' },
-          { name: 'NVIDIA QUADRO', href: '/products?gpu=quadro' },
-          { name: 'INTEL ARC', href: '/products?gpu=intel-arc' },
+          { name: 'RTX 50 Series', href: '/products?category=gpu&model=rtx50' },
+          { name: 'RTX 40 Series', href: '/products?category=gpu&model=rtx40' },
+          { name: 'RTX 30 Series', href: '/products?category=gpu&model=rtx30' },
+          { name: 'NVIDIA QUADRO', href: '/products?category=gpu&model=quadro' },
+          { name: 'INTEL ARC', href: '/products?category=gpu&model=intel-arc' },
         ]
       },
       {
         title: 'Shop By Brand',
         items: [
-          { name: 'Asus', href: '/products?brand=asus' },
-          { name: 'Asrock', href: '/products?brand=asrock' },
-          { name: 'Gigabyte', href: '/products?brand=gigabyte' },
-          { name: 'Inno3D', href: '/products?brand=inno3d' },
-          { name: 'MSI', href: '/products?brand=msi' },
-          { name: 'Sapphire', href: '/products?brand=sapphire' },
-          { name: 'Zotac', href: '/products?brand=zotac' },
+          { name: 'Asus', href: '/products?category=gpu&brand=asus' },
+          { name: 'Asrock', href: '/products?category=gpu&brand=asrock' },
+          { name: 'Gigabyte', href: '/products?category=gpu&brand=gigabyte' },
+          { name: 'Inno3D', href: '/products?category=gpu&brand=inno3d' },
+          { name: 'MSI', href: '/products?category=gpu&brand=msi' },
+          { name: 'Sapphire', href: '/products?category=gpu&brand=sapphire' },
+          { name: 'Zotac', href: '/products?category=gpu&brand=zotac' },
         ]
       },
     ]
@@ -202,11 +202,11 @@ const CATEGORY_DATA = [
       {
         title: 'By Brand',
         items: [
-          { name: 'Adata', href: '/products?brand=adata' },
-          { name: 'Corsair', href: '/products?brand=corsair' },
-          { name: 'G.Skill', href: '/products?brand=gskill' },
-          { name: 'Kingston', href: '/products?brand=kingston' },
-          { name: 'Thermaltake', href: '/products?brand=thermaltake' },
+          { name: 'Adata', href: '/products?category=ram&brand=adata' },
+          { name: 'Corsair', href: '/products?category=ram&brand=corsair' },
+          { name: 'G.Skill', href: '/products?category=ram&brand=gskill' },
+          { name: 'Kingston', href: '/products?category=ram&brand=kingston' },
+          { name: 'Thermaltake', href: '/products?category=ram&brand=thermaltake' },
         ]
       },
     ]
@@ -396,31 +396,31 @@ const CATEGORY_DATA = [
       {
         title: 'Shop By Type',
         items: [
-          { name: 'Gaming Monitor', href: '/products?type=gaming' },
-          { name: 'Professional', href: '/products?type=professional' },
-          { name: '4K Monitor', href: '/products?resolution=4k' },
-          { name: '2K Monitor', href: '/products?resolution=2k' },
+          { name: 'Gaming Monitor', href: '/products?category=monitor&type=gaming' },
+          { name: 'Professional', href: '/products?category=monitor&type=professional' },
+          { name: '4K Monitor', href: '/products?category=monitor&resolution=4k' },
+          { name: '2K Monitor', href: '/products?category=monitor&resolution=2k' },
         ]
       },
       {
         title: 'Shop By Size',
         items: [
-          { name: '34 Inch', href: '/products?size=34' },
-          { name: '32 Inch', href: '/products?size=32' },
-          { name: '27 Inch', href: '/products?size=27' },
-          { name: '24 Inch', href: '/products?size=24' },
-          { name: '22 Inch', href: '/products?size=22' },
+          { name: '34 Inch', href: '/products?category=monitor&size=34' },
+          { name: '32 Inch', href: '/products?category=monitor&size=32' },
+          { name: '27 Inch', href: '/products?category=monitor&size=27' },
+          { name: '24 Inch', href: '/products?category=monitor&size=24' },
+          { name: '22 Inch', href: '/products?category=monitor&size=22' },
         ]
       },
       {
         title: 'Shop By Brand',
         items: [
-          { name: 'Asus', href: '/products?brand=asus' },
-          { name: 'BenQ', href: '/products?brand=benq' },
-          { name: 'LG', href: '/products?brand=lg' },
-          { name: 'MSI', href: '/products?brand=msi' },
-          { name: 'Samsung', href: '/products?brand=samsung' },
-          { name: 'Viewsonic', href: '/products?brand=viewsonic' },
+          { name: 'Asus', href: '/products?category=monitor&brand=asus' },
+          { name: 'BenQ', href: '/products?category=monitor&brand=benq' },
+          { name: 'LG', href: '/products?category=monitor&brand=lg' },
+          { name: 'MSI', href: '/products?category=monitor&brand=msi' },
+          { name: 'Samsung', href: '/products?category=monitor&brand=samsung' },
+          { name: 'Viewsonic', href: '/products?category=monitor&brand=viewsonic' },
         ]
       },
     ]

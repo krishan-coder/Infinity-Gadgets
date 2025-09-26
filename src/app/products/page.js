@@ -446,32 +446,6 @@ const Products = () => {
         <div className="relative rounded-lg overflow-hidden">
         <ProductCard product={prod} index={i} currentTheme={currentTheme} />
         {/* overlay shown on hover (tailwind group-hover would need group parent; we use absolute + opacity transition) */}
-        <div className="absolute inset-0 flex items-end justify-center p-3 pointer-events-none">
-        <div className="opacity-0 hover:opacity-100 pointer-events-auto transition-opacity duration-200 transform translate-y-2 hover:translate-y-0">
-        <div className="flex gap-2">
-        <button
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white shadow text-sm"
-        aria-label={`View ${prod.name}`}
-        onClick={() => {
-          // prefer navigating to product detail route — placeholder
-          window.location.href = `/products/${prod.slug || prod.id}`;
-        }}
-        >
-        <Eye className="w-4 h-4" /> View
-        </button>
-        <button
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 text-white shadow text-sm"
-        aria-label={`Add ${prod.name} to cart`}
-        onClick={() => {
-          // placeholder add to cart action
-          alert(`${prod.name} added to cart (demo)`);
-        }}
-        >
-        <ShoppingCart className="w-4 h-4" /> Add
-        </button>
-        </div>
-        </div>
-        </div>
         </div>
         </motion.div>
       ))}
