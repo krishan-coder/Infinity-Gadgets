@@ -14,6 +14,7 @@ import {
 import ProductCard from '../../cards/ProductCard';
 import { products } from '../../data/product';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Suspense } from 'react';
 
 /* ---------------------------
  *  Redesigned Products Page
@@ -500,4 +501,10 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <Products />
+    </Suspense>
+  );
+}
