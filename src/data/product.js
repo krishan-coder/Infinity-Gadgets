@@ -318,7 +318,7 @@ export const products = [
       'https://i.pinimg.com/736x/ce/24/69/ce2469885031099b1abd8249b8664fa6.jpg'
     ],
     specifications: {
-     "Display Size": "24.5 inches",
+    "Display Size": "24.5 inches",
     "Panel Type": "SuperSpeed IPS",
     "Resolution": "1920 x 1080 (Full HD)",
     "Refresh Rate": "200Hz",
