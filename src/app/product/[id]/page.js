@@ -105,7 +105,7 @@ const ProductDetail = () => {
               </>
             )}
 
-            {product.discount && (
+            {product.discount !== 0  && (
               <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded-lg text-xs md:text-sm font-semibold">
                 -{product.discount}% OFF
               </div>
@@ -160,7 +160,7 @@ const ProductDetail = () => {
                   ₹{product.originalPrice.toLocaleString()}
                 </span>
               )}
-              {product.discount && (
+              {product.discount !== 0 && (
                 <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold mt-2 sm:mt-0">
                   Save ₹{(product.originalPrice - product.price).toLocaleString()}
                 </span>
@@ -232,13 +232,13 @@ const ProductDetail = () => {
               <Truck className={`w-5 h-5 ${currentTheme.accent}`} />
               <div>
                 <p className={`font-medium text-sm ${currentTheme.text}`}>{"Free Shipping"}</p>
-                <p className={`text-xs ${currentTheme.lightText}`}>{"Orders over $100"}</p>
+                <p className={`text-xs ${currentTheme.lightText}`}>{"Orders over ₹1000"}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <Shield className="w-5 h-5 text-green-600" />
               <div>
-                <p className={`font-medium text-sm ${currentTheme.text}`}>{"2 Year Warranty"}</p>
+                <p className={`font-medium text-sm ${currentTheme.text}`}>{"With Warranty"}</p>
                 <p className={`text-xs ${currentTheme.lightText}`}>{"Full coverage"}</p>
               </div>
             </div>
@@ -246,7 +246,6 @@ const ProductDetail = () => {
               <RotateCcw className="w-5 h-5 text-orange-600" />
               <div>
                 <p className={`font-medium text-sm ${currentTheme.text}`}>{"30-Day Returns"}</p>
-                <p className={`text-xs ${currentTheme.lightText}`}>{"No questions asked"}</p>
               </div>
             </div>
           </div>

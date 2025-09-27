@@ -4,22 +4,29 @@ export const products = [
   {
     id: '1',
     name: 'ASUS ROG Strix GeForce RTX 4080',
-    description: 'Experience gaming at its finest with the ASUS ROG Strix GeForce RTX 4080. Features advanced cooling and RGB lighting.',
-    price: 1199,
-    originalPrice: 1299,
+    description: 'High-performance gaming graphics card powered by NVIDIA Ada Lovelace architecture, featuring advanced cooling, RGB lighting, and AI-powered graphics technologies.',
+    price: 1199.99,
+    originalPrice: 1299.99,
     discount: 8,
     category: 'gaming',
     subcategory: 'graphics-cards',
     images: [
-      'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=500',
-      'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/1200x/4e/a0/0b/4ea00ba25339bac0740297410804fcaf.jpg',
     ],
     specifications: {
-      'Memory': '16GB GDDR6X',
-      'Base Clock': '2505 MHz',
-      'Boost Clock': '2595 MHz',
-      'Memory Speed': '22.4 Gbps',
-      'Interface': 'PCIe 4.0 x16'
+     'GPU Engine': 'NVIDIA GeForce RTX 4080',
+    'CUDA Cores': '9728',
+    'Boost Clock': 'Up to 2595 MHz (OC mode)',
+    'Base Clock': '2205 MHz',
+    'Memory': '16GB GDDR6X',
+    'Memory Interface': '256-bit',
+    'Memory Speed': '22.4 Gbps',
+    'Bus Standard': 'PCI Express 4.0',
+    'Power Connectors': '3 × 8-pin (via 16-pin adapter)',
+    'Recommended PSU': '750W or higher',
+    'Outputs': '2 × HDMI 2.1a, 3 × DisplayPort 1.4a',
+    'Cooling': 'Axial-tech triple-fan design, 3.5-slot',
+    'Dimensions': '357.6 × 149.3 × 70.1 mm'
     },
     inStock: true,
     stockCount: 15,
@@ -29,22 +36,28 @@ export const products = [
   },
   {
     id: '2',
-    name: 'Razer DeathAdder V3 Pro Gaming Mouse',
-    description: 'Professional esports gaming mouse with 30K DPI sensor and 90-hour battery life.',
-    price: 149,
-    originalPrice: 179,
-    discount: 17,
+    name: 'Razer DeathAdder V3 Pro Wireless Gaming Mouse',
+    description: 'Ultra-lightweight ergonomic wireless mouse with Razer HyperSpeed wireless, Focus Pro 30K optical sensor, and 90 million click lifecycle switches.',
+    price: 6999,
+    originalPrice: 26999,
+    discount: 74,
     category: 'gaming',
-    subcategory: 'peripherals',
+    subcategory: 'mouse',
     images: [
-      'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/9d/af/e2/9dafe208ef1279e685ccebb735973e6b.jpg'
     ],
     specifications: {
-      'DPI': 'Up to 30,000',
-      'Battery Life': '90 hours',
-      'Connectivity': 'Wireless 2.4GHz',
-      'Weight': '95g',
-      'Switches': 'Razer Optical'
+      'Sensor': 'Razer Focus Pro 30K Optical Sensor',
+    'Sensitivity': '30,000 DPI (adjustable)',
+    'Max Speed': '750 IPS',
+    'Max Acceleration': '70G',
+    'Switches': 'Razer Optical Mouse Switches Gen-3 (90M clicks)',
+    'Buttons': '6 programmable',
+    'Connectivity': 'Razer HyperSpeed Wireless, USB-C wired',
+    'Battery Life': 'Up to 90 hours (HyperSpeed, no RGB)',
+    'Weight': '63 g (white) / 64 g (black)',
+    'Shape': 'Ergonomic right-handed',
+      'Compatibility': 'PC, macOS, USB-C devices'
     },
     inStock: true,
     stockCount: 45,
@@ -55,20 +68,26 @@ export const products = [
   {
     id: '3',
     name: 'AMD Ryzen 9 7900X Processor',
-    description: '12-core, 24-thread processor with 5.6 GHz max boost for ultimate performance.',
-    price: 399,
+    description: '12-core, 24-thread processor based on AMD Zen 4 architecture, delivering elite gaming and creator performance with support for DDR5 and PCIe 5.0.',
+    price: 36599,
     category: 'components',
     subcategory: 'processors',
     images: [
-      'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/e6/f9/b0/e6f9b0aa27b727f1e07ffffa52e0f67d.jpg',
+      'https://i.pinimg.com/1200x/96/4c/b2/964cb2262d4143856c70a11d2a39cb07.jpg',
+      'https://i.pinimg.com/1200x/9d/97/b6/9d97b68414217973eda3c5ca43c9c625.jpg'
     ],
     specifications: {
-      'Cores': '12',
-      'Threads': '24',
-      'Base Clock': '4.7 GHz',
-      'Max Boost': '5.6 GHz',
-      'Cache': '76MB',
-      'TDP': '170W'
+     'Architecture': 'Zen 4',
+    'Cores / Threads': '12 / 24',
+    'Base Clock': '4.7 GHz',
+    'Max Boost Clock': 'Up to 5.6 GHz',
+    'Cache': '76 MB (L2 + L3)',
+    'TDP': '170W',
+    'Socket': 'AM5',
+    'Memory Support': 'DDR5, Dual Channel, up to 5200 MT/s',
+    'PCIe Version': 'PCIe 5.0',
+    'Integrated Graphics': 'AMD Radeon Graphics (2 cores, 2200 MHz)'
     },
     inStock: true,
     stockCount: 22,
@@ -78,21 +97,24 @@ export const products = [
   {
     id: '4',
     name: 'Corsair Vengeance LPX 32GB DDR4',
-    description: 'High-performance DDR4 memory designed for overclocking and gaming.',
-    price: 139,
-    originalPrice: 159,
-    discount: 13,
+    description:  'High-performance DDR4 memory designed for gamers and overclockers, built with pure aluminum heat spreader for faster heat dissipation and reliable performance.',
+    price: 3990,
+    originalPrice: 6649,
+    discount: 40,
     category: 'components',
     subcategory: 'memory',
     images: [
-      'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/e1/97/a0/e197a0253da46b03fd34361d36cf9983.jpg',
+      'https://i.pinimg.com/1200x/2b/88/3f/2b883f41fbd8dbd6a7c0446dafc71c54.jpg'
     ],
     specifications: {
-      'Capacity': '32GB (2x16GB)',
-      'Speed': 'DDR4-3200',
-      'Latency': 'CL16',
-      'Voltage': '1.35V',
-      'Profile': 'XMP 2.0'
+       'Capacity': '32GB (2×16GB)',
+    'Speed': 'DDR4-3200',
+    'Latency': 'CL16',
+    'Voltage': '1.35V',
+    'Form Factor': 'DIMM',
+    'Profile': 'Intel XMP 2.0',
+    'Compatibility': 'Intel and AMD DDR4 platforms'
     },
     inStock: true,
     stockCount: 67,
@@ -102,21 +124,29 @@ export const products = [
   {
     id: '5',
     name: 'Samsung 980 PRO 2TB NVMe SSD',
-    description: 'Blazing fast PCIe 4.0 NVMe SSD with up to 7,000 MB/s read speeds.',
-    price: 199,
-    originalPrice: 249,
-    discount: 20,
+    description: "Blazing fast PCIe 4.0 NVMe SSD delivering up to 7,000 MB/s read speeds and exceptional endurance, ideal for gaming, content creation, and high-performance PCs.",
+    price: 16999,
+    originalPrice: 50999,
+    discount: 66,
     category: 'components',
     subcategory: 'storage',
     images: [
-      'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/1200x/3e/27/92/3e27920e067be703a6f1265a7e051313.jpg',
+      'https://i.pinimg.com/1200x/be/c4/b0/bec4b01c5ec1fe940f1bd1e995e27f22.jpg'
     ],
     specifications: {
-      'Capacity': '2TB',
-      'Interface': 'PCIe 4.0 x4',
-      'Sequential Read': '7,000 MB/s',
-      'Sequential Write': '6,900 MB/s',
-      'Form Factor': 'M.2 2280'
+       "Capacity": "2TB",
+      "Interface": "PCIe 4.0 x4, NVMe 1.3c",
+      "Sequential Read": "Up to 7,000 MB/s",
+      "Sequential Write": "Up to 5,100 MB/s",
+      "Random Read (4K, QD32)": "Up to 1,000K IOPS",
+      "Random Write (4K, QD32)": "Up to 1,000K IOPS",
+      "Form Factor": "M.2 2280",
+      "Controller": "Samsung Elpis",
+      "NAND": "Samsung V-NAND 3-bit MLC",
+      "MTBF": "1.5 million hours",
+      "Endurance": "1200 TBW",
+      "Warranty": "1 Years Limited"
     },
     inStock: true,
     stockCount: 34,
@@ -127,20 +157,28 @@ export const products = [
   // Commercial Products
   {
     id: '6',
-    name: 'Dell OptiPlex 7090 Business Desktop',
-    description: 'Powerful business desktop with Intel Core i7 processor and comprehensive security features.',
-    price: 899,
+     name: "Dell Vostro 3681 Small Form Factor Desktop",
+    description: "Compact and powerful desktop featuring Intel Core i5-10500 processor, 16GB RAM, and 512GB NVMe SSD, designed for business and professional use.",
+    price: 43990,
+    originalPrice:  47990,
+    discount: 9,
     category: 'commercial',
     subcategory: 'desktops',
     images: [
-      'https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/1200x/b9/dd/55/b9dd5515d87bff1e074ace54720104e9.jpg',
+      'https://i.pinimg.com/1200x/36/ca/ab/36caab676b76145a8ad18c70298a9ce7.jpg'
     ],
     specifications: {
-      'Processor': 'Intel Core i7-11700',
-      'Memory': '16GB DDR4',
-      'Storage': '512GB SSD',
-      'Graphics': 'Intel UHD Graphics',
-      'OS': 'Windows 11 Pro'
+      "Processor": "Intel Core i5-10500, 6C/12T, 3.1-4.5GHz",
+    "Memory": "16GB DDR4, 2933MHz, 4 slots, up to 64GB",
+    "Storage": "512GB NVMe SSD",
+    "Graphics": "Intel UHD 630, Optional Discrete",
+    "Ports": "Front: 2xUSB3.2, 1xUSB-C, Audio; Rear: 4xUSB3.2, 2xDP1.4, 1xHDMI, Ethernet, Audio",
+    "Networking": "Ethernet 1Gbps, Optional Wi-Fi 6",
+    "OS": "Windows 10 Pro",
+    "Form Factor": "Small Form Factor",
+    "Dimensions": "29.7x9.3x29.7 cm",
+    "Weight": "5.4 kg"
     },
     inStock: true,
     stockCount: 18,
@@ -150,20 +188,27 @@ export const products = [
   // Accessories
   {
     id: '7',
-    name: 'Logitech MX Master 3S Wireless Mouse',
-    description: 'Advanced wireless mouse with MagSpeed scrolling and multi-device connectivity.',
-    price: 99,
+    name: 'Redragon M991 Wireless Gaming Mouse',
+    description: 'High-performance wireless gaming mouse featuring a 26,000 DPI sensor, 9 programmable buttons, RGB backlighting, and dual-mode connectivity for FPS gaming.',
+    originalPrice: 3999,
+    price: 2999,
+    discount: 25,
     category: 'accessories',
     subcategory: 'mice',
     images: [
-      'https://images.pexels.com/photos/2115217/pexels-photo-2115217.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/1200x/b5/ee/28/b5ee2829c16a56d995ae569d40807cfa.jpg',
+      'https://i.pinimg.com/736x/64/13/5c/64135cc01dfb0d73bf73be5b32869b6b.jpg'
     ],
     specifications: {
-      'DPI': 'Up to 8,000',
-      'Battery': 'Up to 70 days',
-      'Connectivity': 'Bluetooth + 2.4GHz',
-      'Buttons': '7',
-      'Compatibility': 'Multi-OS'
+      "Sensor": "Pixart PAW3370",
+    "DPI": "50–26,000 (5 preset levels: 1000/2000/4000/8000/26000)",
+    "Polling Rate": "125/250/500/1000 Hz",
+    "Connectivity": "2.4GHz wireless, USB-C wired",
+    "Battery Life": "Up to 45 hours (eco mode)",
+    "Buttons": "9 programmable (including Rapid Fire and 2 side macro buttons)",
+    "RGB Lighting": "16.8 million customizable colors",
+    "Weight": "Approximately 100g",
+    "Compatibility": "PC, Mac, Laptop"
     },
     inStock: true,
     stockCount: 89,
@@ -172,22 +217,28 @@ export const products = [
   },
   {
     id: '8',
-    name: 'Mechanical RGB Gaming Keyboard',
-    description: 'Full-size mechanical keyboard with Cherry MX switches and customizable RGB lighting.',
-    price: 129,
-    originalPrice: 149,
-    discount: 13,
+    name: 'EvoFox Katana-X Mechanical Gaming Keyboard',
+    description: 'Compact mechanical keyboard featuring Outemu Blue switches, vibrant RGB lighting, and a multifunctional volume knob, designed for gamers seeking performance and style.',
+    price: 2199,
+    originalPrice: 3299,
+    discount: 33,
     category: 'gaming',
     subcategory: 'keyboards',
     images: [
-      'https://images.pexels.com/photos/1194713/pexels-photo-1194713.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/1a/a3/19/1aa319790434fd921d523e89348b1400.jpg'
     ],
     specifications: {
-      'Switches': 'Cherry MX Red',
-      'Backlighting': 'RGB',
-      'Layout': '104-key',
-      'Connection': 'USB-C',
-      'Features': 'Anti-ghosting'
+       "Switch Type": "Outemu Blue",
+      "Keys": "96",
+      "Key Lifespan": "50 million",
+      "Backlighting": "Rainbow RGB with 13 preset effects",
+      "Anti-Ghosting": "25 keys",
+      "Volume Control": "Knob dial",
+      "Windows Lock": "Yes",
+      "Cable": "1.5m braided with EMI ring",
+      "Dimensions": "385 x 136 x 35.5 mm",
+      "Weight": "700g",
+      "Build": "ABS plastic"
     },
     inStock: true,
     stockCount: 56,
@@ -197,19 +248,35 @@ export const products = [
   }, 
   {
     id: '9',
-    name: 'RGB Gaming Keyboard',
-    description: 'A mechanical keyboard with customizable RGB lighting and hot-swappable switches.',
-    price: 129.99,
-    originalPrice: 149.99,
-    discount: 15,
+    name: 'MSI Vigor GK30 + GM11 White Combo',
+    description: '"A stylish white gaming combo featuring the Vigor GK30 mechanical-like keyboard and GM11 optical mouse, designed for gamers seeking performance and aesthetics.',
+    price: 3999,
+    originalPrice: 4999,
+    discount: 20,
     category: 'gaming',
     subcategory: 'keyboard',
     images: [
-      'https://imgs.search.brave.com/iIu4OUto7tu4h7Uv2u5t1NuuY5Di3srrRje5RGiMLe4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMw/NTE3Mzg2Ni9waG90/by9nYW1pbmcta2V5/Ym9hcmQtd2l0aC1y/Z2ItbGlnaHQtd2hp/dGUtbWVjaGFuaWNh/bC1rZXlib2FyZC1n/YW1lcnMtd29ya3Nw/YWNlLW5lb24tbGln/aHQuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPUFnWmlSUkd4/N1AzQ2VpdG5JcVN6/TTlrOHFCZ1lmb1FK/Mnk0dmpzQWZfWVk9?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/eb/ba/b2/ebbab2a72c712cfcc58861cfbe95eee8.jpg'
     ],
     specifications: {
-      'Key Type': 'Mechanical',
-      'Backlighting': 'RGB'
+    "keyboard": {
+      "type": "Mechanical-like plunger switches",
+      "keys": "104",
+      "key_lifespan": "12 million keystrokes",
+      "backlighting": "6-zone RGB with 7 lighting effects",
+      "water_resistant": "Yes",
+      "dimensions": "438 x 157 x 38 mm",
+      "weight": "1042 g"
+    },
+    "mouse": {
+      "sensor": "Pixart PMW-3325 Optical",
+      "dpi": "400 / 800 / 1600 / 3200 / 5000",
+      "buttons": "6",
+      "switch_type": "Omron",
+      "design": "Ambidextrous",
+      "dimensions": "125 x 65 x 38 mm",
+      "weight": "85 g"
+    }
     },
     inStock: true,
     stockCount: 50,
@@ -240,19 +307,34 @@ export const products = [
   },
   {
     id: '11',
-    name: '4K Ultra HD Monitor',
-    description: 'Stunning visuals for work and play.',
-    price: 499.99,
-    originalPrice: 549.99,
-    discount: 50,
+    name: "Gigabyte GS25F2 24.5\" 200Hz 1ms Gaming Monitor",
+    description: 'A 24.5-inch Full HD gaming monitor featuring a 200Hz refresh rate, 1ms GTG response time, and SuperSpeed IPS technology for smooth and vibrant gaming visuals.',
+    price: 10999,
+    originalPrice: 8499,
+    discount: 28,
     category: 'components',
     subcategory: 'monitor',
     images: [
-      'https://m.media-amazon.com/images/I/81bQEQgABvL.jpg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/ce/24/69/ce2469885031099b1abd8249b8664fa6.jpg'
     ],
     specifications: {
-      'Resolution': '3840x2160',
-      'Refresh Rate': '144Hz'
+     "Display Size": "24.5 inches",
+    "Panel Type": "SuperSpeed IPS",
+    "Resolution": "1920 x 1080 (Full HD)",
+    "Refresh Rate": "200Hz",
+    "Response Time": "1ms GTG",
+    "Color Gamut": "120% sRGB",
+    "HDR": "HDR10",
+    "Brightness": "300 cd/m²",
+    "Contrast Ratio": "1000:1",
+    "Viewing Angles": "178° horizontal / 178° vertical",
+    "Tilt Adjustment": "-5° to +20°",
+    "VESA Mount": "100mm x 100mm",
+    "Connectivity": "2x HDMI 2.0, 1x DisplayPort 1.4, 1x 3.5mm headphone jack",
+    "Features": "AMD FreeSync Premium, OSD Sidekick, Smart OD, Crosshair, Low Blue Light, Flicker-Free",
+    "Power Consumption": "18W (Standby <0.5W)",
+    "Dimensions": "557.00 mm (W) x 51.30 mm (D) x 321.50 mm (H)",
+    "Weight": "2.73 kg"
     },
     inStock: true,
     stockCount: 5,
@@ -263,8 +345,8 @@ export const products = [
     id: '12',
     name: 'Ergonomic Office Chair',
     description: 'Designed for long hours of comfortable work.',
-    price: 249.99,
-    originalPrice: 249.99,
+    price: 8499,
+    originalPrice: 8499,
     discount: 0,
     category: 'commercial',
     subcategory: 'gaming',
@@ -284,8 +366,8 @@ export const products = [
     id: '13',
     name: 'USB-C Docking Station',
     description: 'Expand your laptop\'s connectivity with this powerful dock.',
-    price: 149.99,
-    originalPrice: 174.99,
+    price: 249.99,
+    originalPrice: 374.99,
     discount: 25,
     category: 'accessories',
     subcategory: 'docking-station',
@@ -303,19 +385,37 @@ export const products = [
   },
   {
     id: '14',
-    name: 'Gaming Headset',
-    description: 'Immersive sound and a noise-cancelling microphone.',
-    price: 99.99,
-    originalPrice: 109.99,
-    discount: 10,
+    name: 'Logitech Astro A50 X Wireless Gaming Headset + Base Station',
+    description: 'Premium multi-platform wireless gaming headset featuring Dolby Atmos support, HDMI 2.1 passthrough, and LIGHTSPEED wireless technology for immersive audio across Xbox Series X|S, PS5, and PC.',
+    price: 34999,
+    originalPrice: 39999,
+    discount: 13,
     category: 'gaming',
     subcategory: 'headset',
     images: [
-      'https://static.vecteezy.com/system/resources/thumbnails/049/725/302/small/extreme-closeup-of-a-headset-emphasizing-the-block-voice-chat-feature-for-added-safety-while-gaming-online-photo.jpg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/736x/b8/fd/6d/b8fd6d6f9624ff2b02c6b6741c914186.jpg',
+      'https://i.pinimg.com/1200x/a7/86/b9/a786b90b95d0cb6f629dd7a2eae15f13.jpg'
     ],
     specifications: {
-      'Audio': '7.1 Surround Sound',
-      'Mic': 'Noise-Cancelling'
+      "Headset": {
+        "Weight": "363g",
+        "Drivers": "40mm PRO-G GRAPHENE",
+        "Frequency Response": "20Hz–20kHz",
+        "Audio": "Dolby Atmos, Windows Sonic, 3D Audio (PS5)",
+        "Microphone": "Omnidirectional, 16-bit/48kHz",
+        "Battery Life": "Up to 24 hours",
+        "Charging": "USB-C wired, Charging dock included"
+      },
+      "Base Station": {
+        "Connectivity": "HDMI 2.1 passthrough, USB-C",
+        "Audio Output": "Up to 24-bit/48kHz (PC), 16-bit/48kHz (Console)",
+        "Features": "PLAYSYNC audio/video switcher, Game/Chat mixing, Auto Low Latency Mode (ALLM), Variable Refresh Rate (VRR)"
+      },
+      "Compatibility": {
+        "Xbox": "Series X|S, One",
+        "PlayStation": "PS5, PS4",
+        "PC": "Windows 10/11, macOS 13+"
+      }
     },
     inStock: true,
     stockCount: 200,

@@ -82,7 +82,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
         </Link>
 
         {/* Discount Badge */}
-        {product.discount && (
+        {product.discount > 0 && (
           <div className="absolute top-2 left-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 rounded-full text-xs font-semibold shadow">
             -{product.discount}%
           </div>
@@ -139,10 +139,10 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
 </div>
 
       {/* Product Details */}
-      <div className="p-4">
+      <div className="py-4 px-2">
         <Link href={`/product/${product.id}`}>
-          <div className="mb-2 h-12 overflow-hidden relative">
-            <div className="whitespace-nowrap overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <div className=" h-8 overflow-hidden relative">
+            <div className="whitespace-nowrap overflow-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               <h3 className="font-semibold text-gray-900 inline-block">
                 {product.name}
               </h3>
@@ -161,38 +161,41 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
                   : "text-gray-300"
               }`}
             />
+            
           ))}
-          <span className="text-sm text-gray-600 ml-1">
+          <span className="text-xs text-gray-600 ml-1">
             ({product.reviews})
           </span>
+          {/* Stock Info */}
+            {product.inStock && (
+              <div className=" pl-2 ml-auto">
+                <span className="text-xs text-green-600">
+                  {product.stockCount} in stock
+                </span>
+              </div>
+            )}
         </div>
 
         <div className="mb-3">
   {/* Price and Discount */}
   <div className="flex items-center gap-2">
     <span className="text-xl font-bold text-gray-900">
-      ${product.price.toLocaleString()}
+      ₹{product.price.toLocaleString()}
     </span>
-    {product.originalPrice && (
+    {product.originalPrice > product.price && (
+      <>
       <span className="text-sm text-gray-500 line-through">
-        ${product.originalPrice.toLocaleString()}
+        ₹{product.originalPrice.toLocaleString()}
       </span>
-    )}
-    {product.discount && (
-      <span className="text-sm text-red-500 font-semibold">
+    
+      <span className="text-xs text-red-500 font-semibold">
         -{product.discount}%
       </span>
+      </>
     )}
   </div>
 
-  {/* Stock Info */}
-  {product.inStock && (
-    <div>
-      <span className="text-xs text-green-600">
-        {product.stockCount} in stock
-      </span>
-    </div>
-  )}
+  
 </div>
 
 

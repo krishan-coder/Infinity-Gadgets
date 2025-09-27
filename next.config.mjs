@@ -15,7 +15,8 @@ const nextConfig = {
       "ui-avatars.com",
       "dlcdnwebimgs.asus.com",
       "res.cloudinary.com",
-      
+      "i.pinimg.com",
+      "in.pinterest.com",
 
     ],
   },

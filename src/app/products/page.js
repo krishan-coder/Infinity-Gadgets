@@ -265,8 +265,8 @@ const Products = () => {
 
     {/* Subcategory chips (when category selected and subcats exist) */}
     {selectedCategory && SUBCATS[selectedCategory] && (
-  <div className="mt-3">
-    <div className="flex gap-2 overflow-x-auto pb-2">
+  <div className="mt-3 lg:ml-80 xl:ml-80">
+    <div className="flex gap-2 overflow-x-auto pb-2 ">
       <button
         onClick={() => setSelectedSubcategory('')}
         className={`whitespace-nowrap px-3 py-1 rounded-md text-sm border ${
