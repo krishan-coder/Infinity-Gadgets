@@ -16,21 +16,21 @@ const componentTypes = [
     name: 'Processor (CPU)', 
     icon: Cpu, 
     required: true,
-    subcategory: 'processors'
+    subcategory: 'processor'
   },
   { 
     type: 'gpu' , 
     name: 'Graphics Card (GPU)', 
     icon: Monitor, 
     required: false,
-    subcategory: 'graphics-cards'
+    subcategory: 'graphics-card'
   },
   { 
     type: 'ram' , 
     name: 'Memory (RAM)', 
     icon: MemoryStick, 
     required: true,
-    subcategory: 'memory'
+    subcategory: 'ram'
   },
   { 
     type: 'storage' , 
@@ -44,7 +44,7 @@ const componentTypes = [
     name: 'Motherboard', 
     icon: Cpu, 
     required: true,
-    subcategory: 'motherboards'
+    subcategory: 'motherboard'
   },
   { 
     type: 'psu', 
@@ -72,14 +72,14 @@ const componentTypes = [
     name: 'Keyboard',
     icon: Keyboard,
     required: false,
-    subcategory: 'mouse'
+    subcategory: 'keyboard'
   },
   {
     type: 'mouse' ,
     name: 'Mouse',
     icon: Mouse,
     required: false,
-    subcategory: 'keyboard'
+    subcategory: 'mouse'
   }
 ];
 
@@ -234,6 +234,8 @@ const PCBuilder = () => {
                             className="flex items-center space-x-4 p-4 bg-gray-900 rounded-lg border border-gray-700 hover:border-blue-500 transition-colors duration-300"
                           >
                             <Image
+                              width={64}
+                              height={64}
                               src={selectedComponent.product.images[0]}
                               alt={selectedComponent.product.name}
                               className="w-16 h-16 object-cover rounded-lg"

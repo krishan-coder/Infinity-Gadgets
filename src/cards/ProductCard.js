@@ -23,10 +23,6 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
 
   const [wishlistState, setWishlist] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  
-
-  
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -60,25 +56,30 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
       transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ y: -6, scale: 1.02 }}
       className={`relative rounded-2xl shadow-md overflow-hidden group bg-white transition-all duration-500 ${currentTheme.inputBg}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onTouchStart={() => setHovered(true)} // for mobile tap
-      onTouchEnd={() => setHovered(false)} // for mobile tap
     >
       {/* Product Image */}
       <div className="relative w-full">
         <Link href={`/product/${product.id}`}>
-          <Image
-            width={400}
-            height={400}
-            src={
-              hovered && product.images[1]
-                ? product.images[1]
-                : product.images[0]
-            }
-            alt={product.name}
-            className="w-full h-40 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <div className="relative w-full h-40 sm:h-56">
+            {/* Primary Image (visible by default) */}
+            <Image
+              width={400}
+              height={400}
+              src={product.images[0]}
+              alt={product.name}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+            />
+            {/* Secondary Image (visible on hover) */}
+            {product.images[1] && (
+              <Image
+                width={400}
+                height={400}
+                src={product.images[1]}
+                alt={product.name}
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+              />
+            )}
+          </div>
         </Link>
 
         {/* Discount Badge */}
@@ -104,39 +105,36 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           </div>
         )}
 
- {/* Floating Action Buttons */}
-<motion.div
-  initial={{ opacity: 0, y: 10 }}
-  animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
-  whileHover={{ opacity: 1, y: 0 }} // desktop hover
-  transition={{ duration: 0.3 }}
-  className="
-    absolute top-3 right-3 flex flex-col gap-2
-    opacity-0 group-hover:opacity-100
-    pointer-events-auto
-    mt-5
-  " // mobile tap toggle
->
-  <button
-    onClick={handleQuickView}
-    className="p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
-    aria-label="Quick View"
-  >
-    <Eye className="w-4 h-4 text-gray-700" />
-  </button>
+        {/* Floating Action Buttons */}
+        <div
+          className="
+            absolute top-3 right-3 flex flex-col gap-2
+            transition-all duration-300 ease-in-out
+            
+            opacity-100
+            md:opacity-0 md:translate-y-2
+            md:group-hover:opacity-100 md:group-hover:translate-y-0
+          "
+        >
+          <button
+            onClick={handleQuickView}
+            className="p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
+            aria-label="Quick View"
+          >
+            <Eye className="w-4 h-4 text-gray-700" />
+          </button>
 
-  <button
-    onClick={handleWishlist}
-    className={`p-2 rounded-full bg-white shadow hover:bg-gray-100 transition ${
-      wishlistState ? "text-red-600" : "text-gray-700"
-    }`}
-    aria-label="Wishlist"
-  >
-    <Heart className={`w-4 h-4 ${wishlistState ? "fill-red-600" : ""}`} />
-  </button>
-</motion.div>
-
-</div>
+          <button
+            onClick={handleWishlist}
+            className={`p-2 rounded-full bg-white shadow hover:bg-gray-100 transition ${
+              wishlistState ? "text-red-600" : "text-gray-700"
+            }`}
+            aria-label="Wishlist"
+          >
+            <Heart className={`w-4 h-4 ${wishlistState ? "fill-red-600" : ""}`} />
+          </button>
+        </div>
+      </div>
 
       {/* Product Details */}
       <div className="py-4 px-2">
@@ -161,43 +159,39 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
                   : "text-gray-300"
               }`}
             />
-            
           ))}
           <span className="text-xs text-gray-600 ml-1">
             ({product.reviews})
           </span>
           {/* Stock Info */}
-            {product.inStock && (
-              <div className=" pl-2 ml-auto">
-                <span className="text-xs text-green-600">
-                  {product.stockCount} in stock
-                </span>
-              </div>
-            )}
+          {product.inStock && (
+            <div className=" pl-2 ml-auto">
+              <span className="text-xs text-green-600">
+                {product.stockCount} in stock
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="mb-3">
-  {/* Price and Discount */}
-  <div className="flex items-center gap-2">
-    <span className="text-xl font-bold text-gray-900">
-      ₹{product.price.toLocaleString()}
-    </span>
-    {product.originalPrice > product.price && (
-      <>
-      <span className="text-sm text-gray-500 line-through">
-        ₹{product.originalPrice.toLocaleString()}
-      </span>
-    
-      <span className="text-xs text-red-500 font-semibold">
-        -{product.discount}%
-      </span>
-      </>
-    )}
-  </div>
+          {/* Price and Discount */}
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-gray-900">
+              ₹{product.price.toLocaleString()}
+            </span>
+            {product.originalPrice > product.price && (
+              <>
+                <span className="text-sm text-gray-500 line-through">
+                  ₹{product.originalPrice.toLocaleString()}
+                </span>
 
-  
-</div>
-
+                <span className="text-xs text-red-500 font-semibold">
+                  -{product.discount}%
+                </span>
+              </>
+            )}
+          </div>
+        </div>
 
         {/* Add to Cart */}
         <Button
@@ -220,8 +214,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
         {/* Optional Free Shipping */}
         {product.freeShipping && (
           <div className="flex items-center mt-2 text-xs text-gray-600">
-            <Truck className="w-4 h-4 mr-1 text-green-500" /> Free
-            Shipping
+            <Truck className="w-4 h-4 mr-1 text-green-500" /> Free Shipping
           </div>
         )}
       </div>

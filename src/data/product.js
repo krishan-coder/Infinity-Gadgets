@@ -1,4 +1,3 @@
-
 export const products = [
   // Gaming Products
   {
@@ -9,7 +8,9 @@ export const products = [
     originalPrice: 1299.99,
     discount: 8,
     category: 'gaming',
-    subcategory: 'graphics-cards',
+    type: 'graphics-card',
+    brand: 'asus',
+    series: 'rtx-4000',
     images: [
       'https://i.pinimg.com/1200x/4e/a0/0b/4ea00ba25339bac0740297410804fcaf.jpg',
     ],
@@ -42,7 +43,11 @@ export const products = [
     originalPrice: 26999,
     discount: 74,
     category: 'gaming',
-    subcategory: 'mouse',
+    type: 'peripherals',
+    device: 'mouse',
+    devicetype: 'wireless',
+    brand: 'razer',
+    model: 'deathadder-v3-pro',
     images: [
       'https://i.pinimg.com/736x/9d/af/e2/9dafe208ef1279e685ccebb735973e6b.jpg'
     ],
@@ -71,7 +76,7 @@ export const products = [
     description: '12-core, 24-thread processor based on AMD Zen 4 architecture, delivering elite gaming and creator performance with support for DDR5 and PCIe 5.0.',
     price: 36599,
     category: 'components',
-    subcategory: 'processors',
+    type: 'processor',
     images: [
       'https://i.pinimg.com/736x/e6/f9/b0/e6f9b0aa27b727f1e07ffffa52e0f67d.jpg',
       'https://i.pinimg.com/1200x/96/4c/b2/964cb2262d4143856c70a11d2a39cb07.jpg',
@@ -89,6 +94,9 @@ export const products = [
     'PCIe Version': 'PCIe 5.0',
     'Integrated Graphics': 'AMD Radeon Graphics (2 cores, 2200 MHz)'
     },
+    brand: 'amd',
+    generation: '7000',
+    series: 'r9',
     inStock: true,
     stockCount: 22,
     rating: 4.9,
@@ -102,7 +110,11 @@ export const products = [
     originalPrice: 6649,
     discount: 40,
     category: 'components',
-    subcategory: 'memory',
+    type: 'ram',
+    ramtype: 'ddr4',
+    usage: 'desktop',
+    brand: 'corsair',
+    kit: 'dual',
     images: [
       'https://i.pinimg.com/736x/e1/97/a0/e197a0253da46b03fd34361d36cf9983.jpg',
       'https://i.pinimg.com/1200x/2b/88/3f/2b883f41fbd8dbd6a7c0446dafc71c54.jpg'
@@ -129,7 +141,12 @@ export const products = [
     originalPrice: 50999,
     discount: 66,
     category: 'components',
-    subcategory: 'storage',
+    type: 'storage',
+    storage: 'ssd',
+    interface: 'nvme',
+    form: 'm.2',
+    gen: '2',
+    brand: 'samsung',
     images: [
       'https://i.pinimg.com/1200x/3e/27/92/3e27920e067be703a6f1265a7e051313.jpg',
       'https://i.pinimg.com/1200x/be/c4/b0/bec4b01c5ec1fe940f1bd1e995e27f22.jpg'
@@ -163,7 +180,10 @@ export const products = [
     originalPrice:  47990,
     discount: 9,
     category: 'commercial',
-    subcategory: 'desktops',
+    type: 'desktops',
+    brand: 'dell',
+    resolution: '2k',
+    size: '24',
     images: [
       'https://i.pinimg.com/1200x/b9/dd/55/b9dd5515d87bff1e074ace54720104e9.jpg',
       'https://i.pinimg.com/1200x/36/ca/ab/36caab676b76145a8ad18c70298a9ce7.jpg'
@@ -194,7 +214,10 @@ export const products = [
     price: 2999,
     discount: 25,
     category: 'accessories',
-    subcategory: 'mice',
+    type: 'peripherals',
+    device: 'mouse',
+    devicetype: 'wireless',
+    brand: 'redragon',
     images: [
       'https://i.pinimg.com/1200x/b5/ee/28/b5ee2829c16a56d995ae569d40807cfa.jpg',
       'https://i.pinimg.com/736x/64/13/5c/64135cc01dfb0d73bf73be5b32869b6b.jpg'
@@ -223,7 +246,12 @@ export const products = [
     originalPrice: 3299,
     discount: 33,
     category: 'gaming',
-    subcategory: 'keyboards',
+    type: 'peripherals',
+    device: 'keyboard',
+    devicetype: 'mechanical',
+    brand: 'evofox',
+    model: 'katana-x',
+
     images: [
       'https://i.pinimg.com/736x/1a/a3/19/1aa319790434fd921d523e89348b1400.jpg'
     ],
@@ -254,7 +282,11 @@ export const products = [
     originalPrice: 4999,
     discount: 20,
     category: 'gaming',
-    subcategory: 'keyboard',
+    type: 'peripherals',
+    device: "keyboard",
+    devicetype: 'combo',
+    brand: 'msi',
+    model: 'vigor-gk30-gm11',
     images: [
       'https://i.pinimg.com/736x/eb/ba/b2/ebbab2a72c712cfcc58861cfbe95eee8.jpg'
     ],
@@ -292,7 +324,10 @@ export const products = [
     originalPrice: 79.99,
     discount: 0,
     category: 'gaming',
-    subcategory: 'mouse',
+    type: 'peripherals',
+    brand: 'redragon',
+    model: 'predator-m612-pro',
+    device: 'mouse',
     images: [
       'https://redragonshop.com/cdn/shop/files/PREDATORM612PROgamingmouse_1.png?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -313,7 +348,11 @@ export const products = [
     originalPrice: 8499,
     discount: 28,
     category: 'components',
-    subcategory: 'monitor',
+    type: 'monitor',
+    size: '24',
+    resolution: '1080p',
+    brand: 'gigabyte',
+    series: 'gs25f2',
     images: [
       'https://i.pinimg.com/736x/ce/24/69/ce2469885031099b1abd8249b8664fa6.jpg'
     ],
@@ -349,7 +388,7 @@ export const products = [
     originalPrice: 8499,
     discount: 0,
     category: 'commercial',
-    subcategory: 'gaming',
+    type: 'gaming',
     images: [
       'https://assets.wfcdn.com/im/47705549/resize-h400-w400%5Ecompr-r85/3387/338728218/Lidwien+Ergonomic+Breathable+Mesh+Office+Chair.jpg?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -370,7 +409,7 @@ export const products = [
     originalPrice: 374.99,
     discount: 25,
     category: 'accessories',
-    subcategory: 'docking-station',
+    type: 'docking-station',
     images: [
       'https://manhattanproducts.us/cdn/shop/files/usb-c-pd-10-in-1-dual-hdmi-monitor-docking-station-multiport-hub-190398-1.jpg?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -391,7 +430,10 @@ export const products = [
     originalPrice: 39999,
     discount: 13,
     category: 'gaming',
-    subcategory: 'headset',
+    type: 'peripherals',
+    brand: 'logitech',
+    model: 'astro-a50-x',
+    device: 'headset',
     images: [
       'https://i.pinimg.com/736x/b8/fd/6d/b8fd6d6f9624ff2b02c6b6741c914186.jpg',
       'https://i.pinimg.com/1200x/a7/86/b9/a786b90b95d0cb6f629dd7a2eae15f13.jpg'
@@ -430,7 +472,7 @@ export const products = [
     originalPrice: 119.99,
     discount: 0,
     category: 'components',
-    subcategory: 'cooler',
+    type: 'cpu-cooler',
     images: [
       'https://images.pexels.com/photos/1591062/pexels-photo-1591062.jpeg?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -452,7 +494,10 @@ export const products = [
     originalPrice: 59.99,
     discount: 0,
     category: 'accessories',
-    subcategory: 'webcam',
+    type: 'peripherals',
+    device: 'webcam',
+    brand: 'logitech',
+    model: 'c920',
     images: [
       'https://m.media-amazon.com/images/I/61Z8eKKUIcL.jpg?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -473,7 +518,10 @@ export const products = [
     originalPrice: 29.99,
     discount: 0,
     category: 'gaming',
-    subcategory: 'mousepad',
+    type: 'peripherals ',
+    matz: "large",
+    brand: 'corsair',
+    model: 'mm350',
     images: [
       'https://m.media-amazon.com/images/I/715VRSigTSL.jpg?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -494,7 +542,11 @@ export const products = [
     originalPrice: 159.99,
     discount: 20,
     category: 'gaming',
-    subcategory: 'keyboard',
+    type: 'peripherals',
+    device: 'keyboard',
+    devicetype: 'mechanical',
+    brand: 'corsair',
+    model: 'k70-rgb-pro',
     images: [
       'https://cdn.thewirecutter.com/wp-content/media/2024/04/mechanicalkeyboards-2048px-1385.jpg?auto=compress&cs=tinysrgb&w=500'
     ],

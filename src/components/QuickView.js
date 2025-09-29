@@ -6,10 +6,18 @@ import { ShoppingCart, Star, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { useCart } from '@/contexts/CartContext';
 
 export default function QuickViewModal() {
   const { product, closeQuickView } = useQuickView();
-
+  const { addToCart } = useCart();
+  
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, 1);
+      closeQuickView();
+    }
+  }
   // Handle keyboard escape to close
   useEffect(() => {
     const handleEsc = (event) => {
@@ -96,7 +104,7 @@ export default function QuickViewModal() {
             <div className="p-4 border-t bg-white shrink-0">
                <p className="text-3xl font-extrabold text-gray-900 mb-4">₹{product.price.toLocaleString()}</p>
                <div className="flex flex-col sm:flex-row gap-3">
-                  <button className="flex-1 py-3 px-6 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
+                  <button className="flex-1 py-3 px-6 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-800 transition-colors flex items-center justify-center gap-2" onClick={handleAddToCart}>
                     <ShoppingCart className="w-5 h-5" /> Add to Cart
                   </button>
                   <Link href={`/product/${product.id}`} passHref>

@@ -28,7 +28,7 @@ const ComponentSelectionView = ({ componentType, onSelectProduct, onBack }) => {
   const filteredProducts = useMemo(() => {
     const safeProducts = Array.isArray(products) ? products : [];
     return safeProducts.filter(product => {
-      const matchesCategory = product.subcategory === componentDetails.subcategory;
+      const matchesCategory = product.type === componentDetails.subcategory;
       const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesCategory && matchesSearch;
     });
@@ -73,6 +73,8 @@ const ComponentSelectionView = ({ componentType, onSelectProduct, onBack }) => {
             >
               <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
                 <Image
+                  width={600}
+                  height={400}
                   src={product.images[0]}
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"

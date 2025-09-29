@@ -10,7 +10,7 @@ const safeProducts = Array.isArray(products) ? products : [];
 const ComponentHoverInfo = ({ componentDetails }) => {
   // Filter products based on the subcategory
   const filteredProducts = componentDetails
-    ? safeProducts.filter(p => p.subcategory === componentDetails).slice(0, 4)
+    ? safeProducts.filter(p => p.type === componentDetails).slice(0, 4)
     : [];
 
   // If there are no products, don't render anything
@@ -26,7 +26,7 @@ const ComponentHoverInfo = ({ componentDetails }) => {
       transition={{ duration: 0.2 }}
       // Use the 'group-hover' class to make sure it only shows on hover
       // And the 'hidden' class to ensure it is always hidden on small screens
-      className="absolute z-50 left-[105%] top-1/2 -translate-y-1/2 w-80 p-4 bg-gray-800 rounded-xl shadow-2xl border border-gray-700 pointer-events-none hidden lg:block group-hover:block"
+      className="absolute z-50 left-[105%] top-1/2 -translate-y-1/2 w-80 p-4 bg-gray-800 rounded-xl shadow-2xl border border-gray-700 pointer-events-none hidden lg:block group-hover:block overflow-hidden"
     >
       <h4 className="text-base font-bold text-white mb-3">Popular {componentDetails}s</h4>
       <div className="space-y-3">

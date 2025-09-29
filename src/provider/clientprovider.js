@@ -18,10 +18,10 @@ export default function ClientProvider({ children }) {
               <CartProvider>
                 <OrderProvider>
                   {children}
+                  <QuickViewModal />
                 </OrderProvider>
               </CartProvider>
             </WishListProvider>
-            <QuickViewModal />
           </QuickViewProvider>
         </AuthProvider>
       </SessionProvider>
