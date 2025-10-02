@@ -191,14 +191,14 @@ const TopBar = ({ filters, updateFilter, activeFiltersCount, setFiltersOpen }) =
                     id="sort-by"
                     value={filters.sortBy || 'name-asc'}
                     onChange={(e) => updateFilter('sortBy', e.target.value)}
-                    className="px-3 py-2.5 rounded-lg border bg-white border-slate-200 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="px-2 py-2 md:px-3 md:py-2.5 rounded-lg border bg-white border-slate-200 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                     aria-label="Sort products"
                 >
                     {SORT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
             </div>
-            <button onClick={() => setFiltersOpen(true)} className="lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-800 text-white font-semibold shadow-sm">
-                <Filter className="w-4 h-4" />
+            <button onClick={() => setFiltersOpen(true)} className="lg:hidden flex items-center gap-2 px-2 py-2 rounded-lg bg-slate-800 text-white font-semibold shadow-sm">
+                <Filter className="md:w-4 md:h-4" />
                 <span>Filters</span>
                 {activeFiltersCount > 0 && <span className="ml-1 inline-flex items-center justify-center w-5 h-5 text-xs rounded-full bg-red-500 text-white">{activeFiltersCount}</span>}
             </button>
@@ -368,20 +368,20 @@ const searchParams = useSearchParams();
     }, [filters]);
 
 return (
-<div className={`bg-slate-100 text-slate-800 ${currentTheme.font} min-h-screen transition-colors duration-300`}>
+<div className={`bg-slate-200 text-slate-800 ${currentTheme.font} min-h-screen transition-colors duration-300`}>
             <div className="container mx-auto px-4 py-10">
                 <div className="mb-6">
-                    <h1 className="text-3xl md:text-4xl font-bold">Products</h1>
+                    <h1 className="text-3xl md:text-4xl -mt-6 md:mt-0 font-bold">Products</h1>
                     <p className="text-sm text-slate-500 mt-1">Find your next piece of tech from our curated collection.</p>
                 </div>
 
                 <TopBar {...{ filters, updateFilter, activeFiltersCount, setFiltersOpen }} />
 
                 <div className="mb-4">
-      <div className="flex gap-2.5 overflow-x-auto pb-3 -mx-4 px-4">  
+      <div className="flex gap-2 lg:gap-2.5 overflow-x-auto pb-3 -mx-4 px-4">  
         {CATEGORIES.map(cat => (  
           <button key={cat.value} onClick={() => { updateFilter('category', cat.value);  }}  
-            className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm font-medium transition ${cat.value === filters.category ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50'}`}  
+            className={`whitespace-nowrap px-2 lg:px-4 py-2 rounded-full border text-xs md:text-sm font-medium transition ${cat.value === filters.category ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50'}`}  
           >{cat.label}</button>  
         ))}  
       </div>  
@@ -390,7 +390,7 @@ return (
       <div className="flex gap-2.5 overflow-x-auto pb-3 -mx-4 px-4">  
         {TYPES.map(cat => (  
           <button key={cat.value || 'all'} onClick={() => { updateFilter('type', cat.value);  }}  
-            className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm font-medium transition ${cat.value === filters.type ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50'}`}  
+            className={`whitespace-nowrap px-2 lg:px-4 py-2 rounded-full border text-xs md:text-sm font-medium transition ${cat.value === filters.type ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50'}`}  
           >{cat.label}</button>  
         ))}  
       </div>  

@@ -6,7 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search, ShoppingCart, User, Menu, X, Monitor, Heart,
-  Facebook, Twitter, Instagram, ChevronDown
+  Facebook, Twitter, Instagram, ChevronDown, Home
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
@@ -61,7 +61,17 @@ const Header = () => {
     </Link>
   );
 
-  const gamingLinks = [ "Gaming Keyboard", "Gaming Chair", "Gaming Mouse", "Gamepad", "Gaming Headset", "Gaming Console", "Gaming Mousepad", "Racing Wheel" ];
+  const gamingLinks = {
+  "keyboard": "Gaming Keyboard",
+  "chair": "Gaming Chair",
+  "mouse": "Gaming Mouse",
+  "gamepad": "Gamepad",
+  "headset": "Gaming Headset",
+  "console": "Gaming Console",
+  "mousepad": "Gaming Mousepad",
+  "racingWheel": "Racing Wheel"
+};
+
 
   return (
     <header className="bg-neutral-900 text-white shadow-lg sticky top-0 z-[100]">
@@ -69,7 +79,12 @@ const Header = () => {
       <div className="bg-neutral-800 text-sm hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center h-10">
           <div className="flex space-x-4">
-            <Link href="/" className="hover:text-blue-500 transition-colors">Home</Link>
+            <Link href="/" className="hover:text-blue-500 transition-colors">
+            <div className='flex'>
+              {<Home className='w-4 h-4 pr-0.5 '></Home>}
+              Home
+            </div>              
+            </Link>
             <Link href="/contact" className="hover:text-blue-500 transition-colors">Contact Us</Link>
           </div>
           <div className="flex space-x-3 items-center">
@@ -84,8 +99,8 @@ const Header = () => {
       <div className="container mx-auto px-4 flex justify-between items-center h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 shrink-0">
-          <Monitor className="h-8 w-8 text-blue-500" />
-          <span className="text-xl font-bold font-mono tracking-tighter">InfinityGadgets</span>
+          <Monitor className=" lg:h-10 lg:w-10 text-blue-500" />
+          <span className="text-lg lg:text-2xl font-bold font-mono tracking-tighter">Infinity Gadgets</span>
         </Link>
 
         {/* Desktop Search */}
@@ -108,11 +123,11 @@ const Header = () => {
 
         {/* Actions */}
         <div className="flex items-center space-x-4 md:space-x-5">
-          <Link href="/wishlist" className="hover:text-blue-500 transition-colors" aria-label="Wishlist">
+          <Link href="/wishlist" className="hidden md:block hover:text-blue-500 transition-colors " aria-label="Wishlist">
             <Heart className="w-6 h-6" />
           </Link>
           <Link href="/cart" className="relative hover:text-blue-500 transition-colors" aria-label="Shopping Cart">
-            <ShoppingCart className="h-6 w-6" />
+            <ShoppingCart className=" h-6 w-6" />
             <AnimatePresence>
             {getTotalItems() > 0 && (
               <motion.span
@@ -149,8 +164,13 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 -mr-2" aria-label="Open menu">
-            <Menu className="h-6 w-6" />
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            className="lg:hidden flex items-center gap-1 p-2 -mr-2" 
+            aria-label="Open menu"
+          >
+            <Menu className="h-4 w-4" /> 
+            <span className="text-sm">Menu</span> 
           </button>
         </div>
       </div>
@@ -174,9 +194,16 @@ const Header = () => {
                     exit={{ opacity: 0, y: 10 }}
                     className="absolute left-0 mt-4 bg-neutral-800 text-white shadow-xl rounded-lg grid grid-cols-3 gap-6 p-6 w-[500px] z-50 border border-neutral-700"
                   >
-                    {gamingLinks.map((item) => (
-                      <Link key={item} href={`/products?search=${item}`} className="text-sm font-medium hover:text-blue-400">{item}</Link>
-                    ))}
+                  {Object.keys(gamingLinks).map((key) => (
+                    <Link
+                      key={key}
+                      href={`/products/?category=gaming&device=${key}`}
+                      className="text-sm font-medium hover:text-blue-400"
+                    >
+                      {gamingLinks[key]} {/* display the value */}
+                    </Link>
+                  ))}
+
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -14,6 +14,7 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
+  TrendingDown,
 } from 'lucide-react';
 
 import Banner from '../components/Banner';
@@ -129,22 +130,27 @@ export default function Home() {
   const [newsletterState, setNewsletterState] = useState('idle'); // 'idle' | 'error' | 'success'
   const [isAutoplaying, setIsAutoplaying] = useState(true);
 
-  const sliderSettings = useState({
-   dots: true,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: isAutoplaying,
-    autoplaySpeed: 3500,
-    pauseOnHover: true,
-    arrows: false,
-    responsive: [
-      { breakpoint: 1280, settings: { slidesToShow: 3 } },
-      { breakpoint: 900, settings: { slidesToShow: 2 } },
-      { breakpoint: 520, settings: { slidesToShow: 1 } },
-    ],
-});
+  const sliderSettings = {
+  dots: true,
+  infinite: true,
+  speed: 800,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  autoplay: isAutoplaying,
+  autoplaySpeed: 3000,
+  pauseOnHover: true,
+  arrows: false,
+  responsive: [
+    {
+      breakpoint: 1024, // <= 1024px
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
 
   /* Newsletter basic handler (client-side only) */
   function handleSubscribe(e) {
@@ -258,8 +264,8 @@ export default function Home() {
         <section className="py-14">
           <div className="container mx-auto px-4">
             <motion.div className="flex items-center gap-3 mb-6" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }}>
-              <TrendingUp className="w-6 h-6 text-orange-500" />
-              <h3 className="text-xl font-semibold">Special Offers</h3>
+              <TrendingDown className="w-6 h-6 text-orange-500" />
+              <h3 className="text-xl lg:text-3xl font-semibold">Special Offers %</h3>
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -297,7 +303,7 @@ export default function Home() {
               <button
                 onClick={() => sliderRef.current?.slickPrev()}
                 aria-label="Previous featured"
-                className="p-2 rounded-md bg-white shadow hover:scale-105 transition"
+                className="p-2 ml-2 rounded-md bg-white shadow hover:scale-105 transition"
               >
                 <ChevronLeft className="w-5 h-5 text-slate-700" />
               </button>
@@ -311,14 +317,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative">
-            <Slider ref={sliderRef} {...sliderSettings} className="gap-4">
+          <div className="relative w-full md:w-3/4  mx-auto">
+            <Slider ref={sliderRef} {...sliderSettings} className="gap-4 md:gap-8 flex">
               {featured.map((product, index) => (
                 <div key={product.id} className="px-2">
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
-                    className="h-full"
+                    className="h-full "
                   >
                     <ProductCard product={product} index={index} currentTheme={{}} />
                   </motion.div>

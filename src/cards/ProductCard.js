@@ -55,28 +55,52 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ y: -6, scale: 1.02 }}
-      className={`relative rounded-2xl shadow-md overflow-hidden group bg-white transition-all duration-500 ${currentTheme.inputBg}`}
+      className={`relative rounded-2xl shadow-md  overflow-hidden group bg-white transition-all duration-500 ${currentTheme.inputBg}`}
     >
-      {/* Product Image */}
-      <div className="relative w-full">
-        <Link href={`/product/${product.id}`}>
-          <div className="relative w-full h-40 sm:h-56">
-            {/* Primary Image (visible by default) */}
-            <Image
-              width={400}
-              height={400}
-              src={product.images[0]}
-              alt={product.name}
-              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-            />
-            {/* Secondary Image (visible on hover) */}
-            {product.images[1] && (
+                {/* Product Image */}
+                <div className="relative w-full">
+                  <Link href={`/product/${product.id}`}>
+                    <div className="relative w-full h-40 sm:h-56">
+                      {product.images.length > 1 ? (
+              <>
+                {/* First image */}
+                <Image
+                  width={600}
+                  height={400}
+                  src={product.images[0]}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                  onError={(e) =>
+                    (e.currentTarget.src = `https://placehold.co/600x400/1A202C/ffffff?text=${product.name
+                      .split(" ")
+                      .slice(0, 2)
+                      .join("+")}`)
+                  }
+                />
+
+                {/* Second image */}
+                <Image
+                  width={600}
+                  height={400}
+                  src={product.images[1]}
+                  alt={`${product.name} hover`}
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
+              </>
+            ) : (
+              // Only one image → just zoom effect, no fading
               <Image
-                width={400}
+                width={600}
                 height={400}
-                src={product.images[1]}
+                src={product.images[0]}
                 alt={product.name}
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                onError={(e) =>
+                  (e.currentTarget.src = `https://placehold.co/600x400/1A202C/ffffff?text=${product.name
+                    .split(" ")
+                    .slice(0, 2)
+                    .join("+")}`)
+                }
               />
             )}
           </div>
@@ -105,15 +129,17 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
           </div>
         )}
 
-        {/* Floating Action Buttons */}
+        {/* Floating Action Buttons */} 
         <div
           className="
-            absolute top-3 right-3 flex flex-col gap-2
+            absolute top-3 right-3 flex flex-col gap-4 
             transition-all duration-300 ease-in-out
             
             opacity-100
             md:opacity-0 md:translate-y-2
             md:group-hover:opacity-100 md:group-hover:translate-y-0
+            mt-5
+
           "
         >
           <button
@@ -121,7 +147,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
             className="p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
             aria-label="Quick View"
           >
-            <Eye className="w-4 h-4 text-gray-700" />
+            <Eye className="w-4 h-4  text-gray-700" />
           </button>
 
           <button
@@ -137,7 +163,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
       </div>
 
       {/* Product Details */}
-      <div className="py-4 px-2">
+      <div className="py-4 px-2 bg-zinc-200">
         <Link href={`/product/${product.id}`}>
           <div className=" h-8 overflow-hidden relative">
             <div className="whitespace-nowrap overflow-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
@@ -202,7 +228,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
         >
           {addedToCart ? (
             <>
-              <Check className="w-4 h-4" /> Added
+              <Check className="w-4 h-4 bg-green-600 " /> Added
             </>
           ) : (
             <>

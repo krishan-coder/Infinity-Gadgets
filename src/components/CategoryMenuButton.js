@@ -547,11 +547,12 @@ const CategoryMenuButton = () => {
                             handleMobileCategoryClick(category);
                           }
                         }}
-                        className={`flex justify-between items-center w-full px-4 py-3 text-sm font-medium
+                        className={`flex justify-between items-center w-full px-4 py-3 text-sm font-medium 
                                     transition-colors duration-150 ease-in-out cursor-pointer
-                                    ${activeCategory?.name === category.name ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+                                    ${activeCategory?.name === category.name ? 'bg-blue-600 text-white font-bold' : 'text-gray-700 hover:bg-gray-100'}`}
                       >
                         {category.name}
+                        {/* <ChevronDown className={`h-4 w-4 transition-transform ml-auto  duration-300 ${activeCategory?.name === category.name ? 'rotate-180' : ''}`} /> */}
                         {category.flyout && (
                           isDesktop ? <span className="text-lg leading-none">›</span> :
                           <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${activeCategory?.name === category.name ? 'rotate-180' : ''}`} />
@@ -567,13 +568,15 @@ const CategoryMenuButton = () => {
                               animate="visible"
                               exit="exit"
                               className="overflow-hidden"
-                            >
+                              >
                               <div className="p-4 bg-gray-50 border-t">
                                 {category.flyout.map((section) => (
                                   <div key={section.title} className="mb-4 last:mb-0">
                                     <h4 className="font-semibold text-blue-600 mb-2 border-b pb-1">{section.title}</h4>
                                     <ul className="space-y-1 text-sm">{section.items.map((item) => (
-                                      <li key={item.name}><a href={item.href} className="block py-1 text-gray-600 hover:text-blue-500 hover:underline">{item.name}</a></li>
+                                      <li key={item.name}>
+                                        <a href={item.href} className="block py-1 text-gray-600 hover:text-blue-500 hover:underline">{item.name}</a>
+                                      </li>
                                     ))}</ul>
                                   </div>
                                 ))}

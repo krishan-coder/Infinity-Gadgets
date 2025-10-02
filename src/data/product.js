@@ -291,16 +291,17 @@ export const products = [
       'https://i.pinimg.com/736x/eb/ba/b2/ebbab2a72c712cfcc58861cfbe95eee8.jpg'
     ],
     specifications: {
-    "keyboard": {
+    "keyboard": "Keyboard Details",
       "type": "Mechanical-like plunger switches",
       "keys": "104",
       "key_lifespan": "12 million keystrokes",
       "backlighting": "6-zone RGB with 7 lighting effects",
       "water_resistant": "Yes",
       "dimensions": "438 x 157 x 38 mm",
-      "weight": "1042 g"
-    },
-    "mouse": {
+      "weight": "1042 g",
+      "-----" : "--------",
+      "....." : "........",
+      "Mouse--" : "Mouse Details",
       "sensor": "Pixart PMW-3325 Optical",
       "dpi": "400 / 800 / 1600 / 3200 / 5000",
       "buttons": "6",
@@ -308,7 +309,6 @@ export const products = [
       "design": "Ambidextrous",
       "dimensions": "125 x 65 x 38 mm",
       "weight": "85 g"
-    }
     },
     inStock: true,
     stockCount: 50,
@@ -387,8 +387,9 @@ export const products = [
     price: 8499,
     originalPrice: 8499,
     discount: 0,
-    category: 'commercial',
-    type: 'gaming',
+    category: 'gaming',
+    type: 'chair',
+    device: 'chair',
     images: [
       'https://assets.wfcdn.com/im/47705549/resize-h400-w400%5Ecompr-r85/3387/338728218/Lidwien+Ergonomic+Breathable+Mesh+Office+Chair.jpg?auto=compress&cs=tinysrgb&w=500'
     ],
@@ -466,19 +467,32 @@ export const products = [
   },
   {
     id: '15',
-    name: 'CPU Liquid Cooler',
-    description: 'Keep your processor running cool under heavy loads.',
-    price: 119.99,
-    originalPrice: 119.99,
-    discount: 0,
+    name: 'MSI MAG CORELIQUID A13 360 WHITE',
+    description: '360mm ARGB all-in-one liquid CPU cooler with high flow pump, full copper base, three rifle-bearing fans, and stylish white design.',
+    price: 7990,
+    originalPrice: 1199,
+    discount: 24,
     category: 'components',
     type: 'cpu-cooler',
     images: [
-      'https://images.pexels.com/photos/1591062/pexels-photo-1591062.jpeg?auto=compress&cs=tinysrgb&w=500'
+      'https://i.pinimg.com/1200x/02/08/12/020812af53800b7db42aa0ceaa14b2ca.jpg',
+      'https://i.pinimg.com/736x/6b/55/13/6b55130bd66a8d7be0c3e400f266d6f5.jpg'
     ],
     specifications: {
-      'Radiator Size': '240mm',
-      'Fan Speed': '2000 RPM'
+      "Radiator Size": "360 mm",
+    "Radiator Dimensions": "394 x 119.6 x 27 mm",
+    "Radiator Material": "Aluminum",
+    "Fans": "3 × 120×25 mm, rifle bearing",
+    "Fan Air Flow": "62.6 CFM",
+    "Fan Speed": "Up to ~2000 RPM",
+    "Fan Noise": "~20 dBA",
+    "Pump Speed": "≈3800 RPM ±10%",
+    "Pump Noise": "~20 dBA",
+    "Cold Plate": "Copper",
+    "Water Tubing": "EPDM",
+    "ARGB Lighting": "ARGB Gen2",
+    "Socket Compatibility": "Intel LGA 1700 / 1851, AMD AM5 / AM4",
+    "Accessories": "Thermal paste x1, screws x12"
     },
     inStock: true,
     stockCount: 35,
@@ -490,8 +504,8 @@ export const products = [
     id: '16',
     name: 'Webcam',
     description: 'Crisp 1080p video for video calls and streaming.',
-    price: 59.99,
-    originalPrice: 59.99,
+    price: 359.45,
+    originalPrice: 359.45,
     discount: 0,
     category: 'accessories',
     type: 'peripherals',
@@ -514,11 +528,12 @@ export const products = [
     id: '17',
     name: 'Gaming Mousepad',
     description: 'Large, smooth surface for precise mouse movements.',
-    price: 29.99,
-    originalPrice: 29.99,
+    price: 229.99,
+    originalPrice: 229.99,
     discount: 0,
     category: 'gaming',
-    type: 'peripherals ',
+    type: 'gamepad',
+    device: 'gamepad',
     matz: "large",
     brand: 'corsair',
     model: 'mm350',

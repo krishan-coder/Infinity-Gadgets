@@ -188,7 +188,9 @@ const ProductDetail = () => {
           {/* Quantity Selector */}
           <div className="flex items-center space-x-4">
             <span className={`font-medium ${currentTheme.text} text-sm sm:text-base`}>Quantity:</span>
-            <div className={`flex items-center border rounded-lg ${currentTheme.inputBorder} ${currentTheme.inputBg}`}>
+            <div className={`flex items-center border rounded-lg ${
+                        currentTheme.bg === "bg-gray-900" ? "text-white" : "text-black"
+                      } ${currentTheme.inputBorder} ${currentTheme.inputBg}`}>
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 className={`p-2 hover:${currentTheme.inputBg} transition-colors`}

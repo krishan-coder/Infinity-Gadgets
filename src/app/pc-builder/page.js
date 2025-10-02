@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cpu, HardDrive, MemoryStick, Zap, Monitor, Mouse, Plus, Trash2, Keyboard, ShoppingCart, Power, Computer, Component, Star } from 'lucide-react';
+import { Cpu, AirplayIcon,Refrigerator, HardDrive, MemoryStick, Zap, Monitor, Mouse, Plus, Trash2, Keyboard, ShoppingCart, Power, Computer, Component, Star, Airplay } from 'lucide-react';
 import Button from '../../components/Button';
 import { products } from '../../data/product';
 import { useCart } from '../../contexts/CartContext';
@@ -21,7 +21,7 @@ const componentTypes = [
   { 
     type: 'gpu' , 
     name: 'Graphics Card (GPU)', 
-    icon: Monitor, 
+    icon: AirplayIcon, 
     required: false,
     subcategory: 'graphics-card'
   },
@@ -40,6 +40,14 @@ const componentTypes = [
     subcategory: 'storage'
   },
   { 
+    type: 'monitor' , 
+    name: 'Monitor', 
+    icon: Monitor, 
+    required: true,
+    subcategory: 'monitor'
+  }
+  ,
+  { 
     type: 'motherboard' , 
     name: 'Motherboard', 
     icon: Cpu, 
@@ -56,7 +64,7 @@ const componentTypes = [
   { 
     type: 'case' , 
     name: 'Case', 
-    icon: Mouse, 
+    icon: Refrigerator, 
     required: true,
     subcategory: 'cases'
   },
@@ -149,7 +157,7 @@ const PCBuilder = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 font-sans antialiased relative overflow-hidden">
+    <div className="min-h-screen bg-gray-950 m text-gray-100 font-sans antialiased relative overflow-hidden">
       <AnimatePresence>
         {selectedComponentType ? (
           <ComponentSelectionView
@@ -207,7 +215,7 @@ const PCBuilder = () => {
                               <componentType.icon className="w-6 h-6 text-white" />
                             </div>
                             <div>
-                              <h3 className="text-xl font-bold text-white">
+                              <h3 className="lg:text-xl xl:text-xl font-bold text-white">
                                 {componentType.name}
                                 {componentType.required && (
                                   <span className="text-red-500 ml-1 text-sm">*</span>
@@ -241,15 +249,15 @@ const PCBuilder = () => {
                               className="w-16 h-16 object-cover rounded-lg"
                             />
                             <div className="flex-1">
-                              <h4 className="font-semibold text-gray-200">{selectedComponent.product.name}</h4>
+                              <h4 className="text-sm lg:text-xl xl:text-xl lg:font-semibold text-gray-200 ">{selectedComponent.product.name}</h4>
                               <p className="text-sm text-gray-400">₹{selectedComponent.product.price.toLocaleString()}</p>
                             </div>
-                            <Button onClick={() => setSelectedComponentType(componentType.type)}>Change</Button>
+                            <Button onClick={() => setSelectedComponentType(componentType.type)} className='text-xs lg:text-xl -ml-6 w-14 h-6 lg:w-24 lg:h-10'>Change</Button>
                           </motion.div>
                         ) : (
                           <motion.button
                             onClick={() => setSelectedComponentType(componentType.type)}
-                            className="w-full p-4 border-2 border-dashed border-gray-700 rounded-lg hover:border-teal-400 hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2"
+                            className="w-full p-2 lg:p-4 border-2 border-dashed border-gray-700 rounded-lg hover:border-teal-400 hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
