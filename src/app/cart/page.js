@@ -40,7 +40,7 @@ const Cart = () => {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Shopping Cart</h1>
         <button
           onClick={clearCart}
-          className="text-white bg-red-600 w-25 -pl-5 border-white-2 h-10 rounded-2xl hover:outline-red text-sm font-medium"
+          className="text-white bg-red-600 w-25 -pl-5 border-white-2 h-10 rounded-2xl hover:outline-red text-sm font-medium cursor-pointer"
         >
           Clear Cart 🗑
         </button>
@@ -56,7 +56,7 @@ const Cart = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-md p-4 sm:p-6"
+              className="bg-white rounded-lg shadow-md p-4 sm:p-6  border-2 border-slate-400"
             >
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 {/* Product Image */}

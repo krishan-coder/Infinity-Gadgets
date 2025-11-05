@@ -574,4 +574,144 @@ export const products = [
     rating: 4.8,
     reviews: 135
   },
+  {
+    id: '19',
+    name: 'Ant Esports ICE-300 Mesh Mid-Tower Gaming Cabinet',
+    description: 'Mid-Tower cabinet with full mesh front, supports ATX/Micro-ATX/Mini-ITX, includes 3x ARGB front fans + 1x rear fan for high airflow.',
+    price: 2390,
+    originalPrice: 57999,
+    discount: 59,
+    category: 'gaming',
+    type: 'cabinet',
+    device: 'case',
+    brand: 'Ant Esports',
+    model: 'ICE-300',
+    images: [
+      'https://i.pinimg.com/736x/93/84/ad/9384ad00027357cffac5a07767e2410e.jpg'
+    ],
+    specifications: {
+       "type": "Mid-Tower Gaming Cabinet",
+      "motherboard_support": "ATX, Micro-ATX, Mini-ITX",
+      "pre_installed_fans": "3 x 120mm Front Fans, 1 x 120mm Rear Fan",
+      "front_panel": "Full Mesh for Enhanced Airflow",
+      "expansion_slots": "7",
+      "drive_bays": "2 x 3.5-inch HDD, 2 x 2.5-inch SSD",
+      "max_gpu_length": "up to 330 mm",
+      "max_cpu_cooler_height": "up to 160 mm",
+      "psu_support": "ATX (bottom mounted)",
+      "dimensions": "420 x 210 x 460 mm",
+      "weight": "Approx. 5.2 kg",
+      "color": "Black"
+    },
+    inStock: true,
+    stockCount: 20,
+    rating: 4.8,
+    reviews: 135
+  },
+  
+  {
+    id: '20',
+    name: 'Sapphire PULSE RX 9070 XT 16GB',
+    description: 'Balanced performance GPU from Sapphire with dual HDMI + dual DisplayPort, factory-tuned clock, and efficient cooling — ideal for high-resolution gaming.',
+    price: 73479,
+    originalPrice: 91800,
+    discount: 20,
+    category: 'gaming',
+    type: 'gpu',
+    device: 'graphic card',
+    brand: 'Sapphire',
+    model: 'PULSE RX 9070 XT',
+    images: [
+      'https://i.pinimg.com/1200x/e8/1c/41/e81c4178ac3d657dc6b40805c2d36841.jpg',
+      'https://i.pinimg.com/736x/d8/16/04/d8160415d8cd14eb0aad474129a96db2.jpg'
+    ],
+    specifications: {
+      "gpu_architecture": "AMD RDNA 4",
+    "memory": "16GB GDDR6",
+    "memory_bus": "256-bit",
+    "boost_clock": "Up to 2970 MHz",
+    "memory_speed": "20 Gbps",
+    "stream_processors": "4096",
+    "interface": "PCIe 5.0 x16",
+    "outputs": "2 x HDMI, 2 x DisplayPort 2.1a",
+    "power_connectors": "2 x 8-pin PCIe",
+    "typical_board_power": "304 W",
+    "dimensions": "320 x 120 x 61.6 mm",
+    "cooling": "Dual Fan Design",
+    "features": "AMD FSR 4, HYPR-RX, Radiance Display Engine, ARGB Lighting",
+    "supported_displays": "Up to 4 displays"
+    },
+    inStock: true,
+    stockCount: 20,
+    rating: 4.8,
+    reviews: 15
+  },
+  {
+    id: '21',
+    name: 'ASUS PRIME X870-P WIFI CSM',
+    description: 'ATX motherboard for AMD AM5 with robust 14+2+1 80A power stages, PCIe 5.0, DDR5, WiFi 7, and advanced features for high performance builds.',
+    price: 32079,
+    originalPrice: 46000,
+    discount: 30,
+    category: 'component',
+    type: 'motherboard',
+    device: 'motherboard',
+    brand: 'Asus',
+    model: 'PRIME X870-P WIFI CSM',
+    images: [
+      'https://i.pinimg.com/736x/0e/ba/0b/0eba0bcd80bd24f65e48df9487520422.jpg'
+    ],
+    specifications: {
+       "form_factor": "ATX",
+    "socket": "AM5",
+    "chipset": "AMD X870",
+    "power_stages": "14 + 2 + 1 × 80A DrMOS",
+    "memory": "4 × DDR5, up to 192/256 GB, supports EXPO / AEMP",
+    "pcie_slots": "1 × PCIe 5.0 x16 + 3 × PCIe 4.0 x16 (in x1 mode) + others", 
+    "m.2_slots": "4 × M.2 (1 × PCIe 5.0, 2 × PCIe 4.0, 1 × PCIe 3.0)",
+    "sata_ports": "2 × SATA 6 Gbps",
+    "ethernet": "2.5Gb Realtek LAN",
+    "wifi": "WiFi 7 (802.11be) with Bluetooth 5.4",
+    "usb_rear": "2 × USB4 40Gbps Type-C, 1 × USB 10Gbps Type-A, 3 × USB 5Gbps, 4 × USB 2.0",
+    "usb_front": "1 × USB 10Gbps (Type-C), header for USB 5Gbps and USB 2.0",
+    "cooling_headers": "1 × CPU Fan, 1 × CPU OPT, 1 × AIO Pump, 4 × Chassis Fans",
+    "special_features": "Pre-mounted I/O shield, Q-Release PCIe, M.2 Q-Latch, Aura Sync RGB, Digi+ VRM, AI Cooling, Q-Antenna",
+    "dimensions": "30.5 × 24.4 cm (ATX)"
+    },
+    inStock: true,
+    stockCount: 20,
+    rating: 4.0,
+    reviews: 13
+  },
+  {
+    id: '22',
+    name: 'MSI GeForce RTX 5060 Ti 8GB GAMING OC',
+    description: 'Next-gen GPU based on NVIDIA Blackwell, featuring 8GB GDDR7 memory, PCIe 5.0 interface, and factory overclock for high-performance gaming.',
+    price: 2390,
+    originalPrice: 57999,
+    discount: 59,
+    category: 'gaming',
+    type: 'gpu',
+    device: 'grapics card',
+    brand: 'MSI',
+    model: 'RTX 5060 Ti GAMING OC',
+    images: [
+      'https://i.pinimg.com/1200x/f0/20/bf/f020bfdeb46e457bd3abd4697de4e0ff.jpg'
+    ],
+    specifications: {
+      "memory": "8GB GDDR7",
+    "memory_speed": "28 Gbps",  
+    "memory_bus": "128-bit",
+    "interface": "PCIe 5.0 x16",
+    "outputs": "3 × DisplayPort 2.1b",
+    "boost_clock": "— (varies by model)",  
+    "tdp": "180 W",
+    "features": "DLSS 4, Ray Tracing, PCIe 5.0 support"
+    },
+    inStock: false,
+    stockCount: 20,
+    rating: 4.1,
+    reviews: 25
+  },
+
 ];

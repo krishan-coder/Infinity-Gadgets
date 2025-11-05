@@ -95,7 +95,7 @@ const Banner = () => {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94], // Custom cubic-bezier for smooth easing
       }
     },
@@ -104,7 +104,7 @@ const Banner = () => {
       opacity: 0,
       scale: 0.9,
       transition: {
-        duration: 0.8,
+        duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94],
       }
     })
@@ -146,7 +146,7 @@ const Banner = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94],
       }
     }
@@ -157,8 +157,8 @@ const Banner = () => {
                 w-full sm:w-[85vw] lg:w-[1200vw] xl:w-[110vw] 
                 max-w-[320px] sm:max-w-[600px] md:max-w-[750px] lg:max-w-[900px] xl:max-w-[1400px]
                 h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] xl:h-[60vh]
-                min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px] xl:min-h-[600px]
-                max-h-[400px] sm:max-h-[450px] md:max-h-[500px] lg:max-h-[550px] xl:max-h-[600px]
+                min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px] xl:min-h-[500px]
+                max-h-[400px] sm:max-h-[450px] md:max-h-[500px] lg:max-h-[500px] xl:max-h-[550px]
                 overflow-hidden 
                 mt-4 sm:mt-6 md:mt-8 lg:mt-10 
                 bg-gray-900 

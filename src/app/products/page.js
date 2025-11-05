@@ -298,7 +298,7 @@ const searchParams = useSearchParams();
             params.set('category', 'all');
             router.replace(`${pathname}?${params.toString()}`, { scroll: false });
         }
-    }, [searchParams]); // Run only once on mount
+    }, [searchParams,pathname,router]); // Run only once on mount
 
     // Derive filter state directly from URL search parameters
     const filters = useMemo(() => {
@@ -324,7 +324,7 @@ const searchParams = useSearchParams();
         return {
             brands: Array.from(brands).sort(),
         };
-    }, [products]);
+    }, []);
     
 
     // Apply filtering and sorting based on the 'filters' object from the URL
@@ -358,7 +358,7 @@ const searchParams = useSearchParams();
             }
         });
         return list;
-    }, [products, filters]);
+    },[products, filters] );
     
     // Calculate active filters, excluding sortBy for the badge count
     const activeFiltersCount = useMemo(() => {

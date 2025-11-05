@@ -1,6 +1,7 @@
 'use client';
 import React, { Profiler } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Monitor , ShoppingBag, User, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Heart, ShoppingCart, Home } from 'lucide-react';
 
 const Footer = () => {
@@ -12,24 +13,33 @@ const Footer = () => {
             {/* Company Info */}
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Monitor className="h-8 w-8 text-blue-400" />
-                <span className="text-xl font-bold">TechStore</span>
+                <Image src="/infinityLogo-v2.png" alt='Shop Logo' width={50} height={50} className='rounded-full bg-white' ></Image>
+                <span className="text-xl font-bold">Infinity Gadgets</span>
               </div>
               <p className="text-gray-400 mb-4">
                 {"Your premier destination for computer accessories, gaming gadgets, and commercial tech solutions."}
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                <a href="#" className=" hover:text-blue-400 transition-colors">
                   <Facebook className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                <a href="#" className=" hover:text-blue-400 transition-colors">
                   <Twitter className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  <Youtube className="h-5 w-5" />
+                <a 
+                  href="https://www.instagram.com/infinitygadgetsdelhi/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  >
+                    <Instagram className="w-5 h-5 hover:text-pink-500 cursor-pointer transition-colors" /></a>
+                <a 
+                  href="https://www.youtube.com/@Infinitygadgetsdelhi" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-6 h-6 hover:text-red-500 cursor-pointer transition-colors" />
                 </a>
               </div>
             </div>
@@ -105,16 +115,31 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
               <ul className="space-y-3">
                 <li className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4 text-blue-400" />
-                  <span className="text-gray-400">123 Tech Street, Digital City</span>
+                  <MapPin className="h-14 w-14 md:h-18 md:w-18 text-blue-400" />
+                  <span className="text-gray-400 text-sm">Store Address-101/46, Front Side First Floor, Dohil Chamber, behind Satyam cinema, Nehru Place, New Delhi- 110019.</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-blue-400" />
-                  <span className="text-gray-400">+1 (555) 123-4567</span>
+                  <div className='flex '>
+                    <span>+91--   </span>
+                  <a 
+                    href="tel:+919354235280" 
+                    className="text-blue-400 underline hover:text-blue-600"
+                  >
+                    9354235280
+                  </a>
+                  ,
+                  <a 
+                    href="tel:+918368511881" 
+                    className="text-blue-400 underline hover:text-blue-600 ml-2"
+                  >
+                    8368511881
+                  </a>
+                  </div>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-blue-400" />
-                  <span className="text-gray-400">support@techstore.com</span>
+                  <a href="mailto:infinitygadgetsdelhi@gmail.com?subject=Inquiry&body=Hello, I would like to know more..." className='text-blue-400 underline hover:text-blue-600'>infinitygadgetsdelhi@gmail.com</a>
                 </li>
               </ul>
             </div>
@@ -129,7 +154,7 @@ const Footer = () => {
       </footer>
 
       {/* ===== Mobile Bottom Nav ===== */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-neutral-900 border-t border-gray-700 z-50 sm:hidden">
+      <nav className="fixed bottom-0 left-0  right-0 bg-neutral-900 border-t border-gray-700 z-50 sm:hidden">
         <div className="flex justify-around items-center h-14 text-gray-400">
           {/* Login/Profile */}
           <Link href="/" className="flex flex-col items-center justify-center hover:text-blue-400 transition-colors">
@@ -138,7 +163,7 @@ const Footer = () => {
           </Link>
 
           {/* Wishlist */}
-          <Link href="/cart" className="flex flex-col items-center justify-center hover:text-blue-400 transition-colors">
+          <Link href="/wishlist" className="flex flex-col items-center justify-center hover:text-blue-400 transition-colors">
             <Heart className="w-6 h-6 mb-1" />
             <span className="text-xs">Wishlist</span>
           </Link>
@@ -148,7 +173,6 @@ const Footer = () => {
             <User className="w-6 h-6 mb-1" />
             <span className="text-xs">Profile</span>
           </Link>
-
         </div>
       </nav>
     </>

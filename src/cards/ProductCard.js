@@ -163,11 +163,11 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
       </div>
 
       {/* Product Details */}
-      <div className="py-4 px-2 bg-zinc-200">
+      <div className="py-3 px-2 bg-zinc-200">
         <Link href={`/product/${product.id}`}>
-          <div className=" h-8 overflow-hidden relative">
+          <div className=" h-8 overflow-hidden relative -mb-2">
             <div className="whitespace-nowrap overflow-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-              <h3 className="font-semibold text-gray-900 inline-block">
+              <h3 className="font-semibold text-gray-900 inline-block ">
                 {product.name}
               </h3>
             </div>
@@ -175,7 +175,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
         </Link>
 
         {/* Rating */}
-        <div className="flex items-center mb-2">
+        <div className="flex items-center mb-1">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
@@ -186,27 +186,30 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
               }`}
             />
           ))}
-          <span className="text-xs text-gray-600 ml-1">
+          <span className=" text-gray-600 text-xs">
             ({product.reviews})
           </span>
           {/* Stock Info */}
           {product.inStock && (
-            <div className=" pl-2 ml-auto">
-              <span className="text-xs text-green-600">
-                {product.stockCount} in stock
+            <div className=" pl-2 ml-auto mb-1">
+              <span className="md:hidden text-green-600 text-sm">
+                stock
+              </span>
+              <span className="hidden md:inline text-xs md:text-lg text-green-600">
+                 in stock
               </span>
             </div>
           )}
         </div>
 
-        <div className="mb-3">
+        <div className="mb-1 mx-auto my-auto text-center -mt-2">
           {/* Price and Discount */}
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-gray-900">
+          <div className="flex flex-col justify-center items-center text-sm">
+            <span className="text-xl md:text-2xl font-bold text-gray-900">
               ₹{product.price.toLocaleString()}
             </span>
             {product.originalPrice > product.price && (
-              <>
+              <div className="flex gap-2">
                 <span className="text-sm text-gray-500 line-through">
                   ₹{product.originalPrice.toLocaleString()}
                 </span>
@@ -214,7 +217,7 @@ const ProductCard = ({ product, index = 0, currentTheme }) => {
                 <span className="text-xs text-red-500 font-semibold">
                   -{product.discount}%
                 </span>
-              </>
+              </div>
             )}
           </div>
         </div>

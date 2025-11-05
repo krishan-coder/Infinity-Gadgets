@@ -167,7 +167,7 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen text-slate-900">
+    <div className="bg-slate-50 min-h-screen text-slate-900 ">
       {/* HERO */}
       <Banner />
 
@@ -395,9 +395,9 @@ export default function Home() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@domain.com"
+                placeholder="example@gmail.com"
                 aria-label="Email address"
-                className="w-full sm:w-auto flex-1 px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto flex-1 px-4 py-3 rounded-lg border border-slate-800 border-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <Button type="submit" className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                 Subscribe

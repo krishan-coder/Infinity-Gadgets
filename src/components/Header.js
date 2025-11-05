@@ -6,14 +6,16 @@ import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search, ShoppingCart, User, Menu, X, Monitor, Heart,
-  Facebook, Twitter, Instagram, ChevronDown, Home
+  Facebook, Twitter, Instagram, ChevronDown, Home,
+  Youtube
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { signOut } from 'next-auth/react';
 import CategoryMenuButton from './CategoryMenuButton';
 import '../app/globals.css';
-
+import Image from 'next/image';
+import ContactUsLink from './ContactUsLink';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,16 +83,30 @@ const Header = () => {
           <div className="flex space-x-4">
             <Link href="/" className="hover:text-blue-500 transition-colors">
             <div className='flex'>
-              {<Home className='w-4 h-4 pr-0.5 '></Home>}
+              {<Home className='w-4 h-4 pr-0.5 fill-white '></Home>}
               Home
             </div>              
             </Link>
-            <Link href="/contact" className="hover:text-blue-500 transition-colors">Contact Us</Link>
+            <ContactUsLink />
           </div>
-          <div className="flex space-x-3 items-center">
-            <a href="#" aria-label="Facebook"><Facebook className="w-4 h-4 hover:text-blue-500 cursor-pointer transition-colors" /></a>
-            <a href="#" aria-label="Twitter"><Twitter className="w-4 h-4 hover:text-blue-400 cursor-pointer transition-colors" /></a>
-            <a href="#" aria-label="Instagram"><Instagram className="w-4 h-4 hover:text-pink-500 cursor-pointer transition-colors" /></a>
+          <div className="flex space-x-2 items-center">
+            <a href="#" aria-label="Facebook"><Facebook className="w-5 h-5 text-white fill-blue-600 cursor-pointer " /></a>
+            <a 
+              href="https://www.instagram.com/infinitygadgetsdelhi/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5 fill-pink-600  cursor-pointer " /></a>
+            <a 
+              href="https://www.youtube.com/@Infinitygadgetsdelhi" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="YouTube"
+            >
+              <Youtube className="w-6 h-6 fill-red-500 cursor-pointer transition-colors" />
+            </a>
+
           </div>
         </div>
       </div>
@@ -99,7 +115,7 @@ const Header = () => {
       <div className="container mx-auto px-4 flex justify-between items-center h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 shrink-0">
-          <Monitor className=" lg:h-10 lg:w-10 text-blue-500" />
+          <Image src="/infinityLogo-v2.png" alt='Shop Logo' width={50} height={50} className='rounded-full bg-white' ></Image>
           <span className="text-lg lg:text-2xl font-bold font-mono tracking-tighter">Infinity Gadgets</span>
         </Link>
 
@@ -124,7 +140,7 @@ const Header = () => {
         {/* Actions */}
         <div className="flex items-center space-x-4 md:space-x-5">
           <Link href="/wishlist" className="hidden md:block hover:text-blue-500 transition-colors " aria-label="Wishlist">
-            <Heart className="w-6 h-6" />
+            <Heart className="w-6 h-6 hover:scale-125 fill-red-500 stroke-red-500" />
           </Link>
           <Link href="/cart" className="relative hover:text-blue-500 transition-colors" aria-label="Shopping Cart">
             <ShoppingCart className=" h-6 w-6" />
@@ -145,7 +161,7 @@ const Header = () => {
           {/* User Menu */}
           <div className="relative group hidden md:block">
             <button className="flex items-center space-x-1 hover:text-blue-500 transition-colors">
-              <User className="h-6 w-6" />
+              <User className="h-7 w-7 fill-blue-500 stroke-blue-600" />
               {user && <span className="hidden lg:block text-sm">{user.name}</span>}
             </button>
             <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
