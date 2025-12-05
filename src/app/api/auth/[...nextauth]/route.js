@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import connectDB from "@/lib/dbconnection";
+import connectDB from "@/lib/config/dbconnection";
 import User from "@/models/Userschema";
 import { compare } from "bcrypt";
 
@@ -24,23 +24,23 @@ const handler = NextAuth({
           console.log("Connecting to DB...");
           await connectDB();
 
-          console.log("Finding user:", credentials.email);
+          
           const user = await User.findOne({ email: credentials.email }).select("+password");
           
 
           if (!user) {
-            console.log("User not found");
+           
             throw new Error("User not found");
           }
 
           const isValid = await compare(credentials.password, user.password);
           
           if (!isValid) {
-            console.log("Invalid password");
+            
             throw new Error("Invalid email or password");
           }
 
-          console.log("User authenticated:", user.email);
+          
 
           return {
             id: user._id.toString(),
@@ -49,7 +49,7 @@ const handler = NextAuth({
             role: user.role || "user",
           };
         } catch (err) {
-          console.error("Auth error:", err);
+          
           throw new Error("Authentication failed");
         }
       },

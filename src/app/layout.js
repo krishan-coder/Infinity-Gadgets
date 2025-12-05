@@ -3,6 +3,8 @@ import "./globals.css";
 import ClientProvider from "../provider/clientprovider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const geistSans = Geist({
@@ -46,6 +48,7 @@ export default function RootLayout({ children }) {
           <main className="flex-grow w-full">{children}</main>
           <Footer id="contact" />
         </Providers>
+        <ToastContainer position="top-right" theme="colored" />
       </body>
     </html>
   );

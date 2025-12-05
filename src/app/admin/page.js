@@ -5,42 +5,7 @@ const App = () => {
   
   const [currentPage, setCurrentPage] = useState('add-product');
 
-  
-  const Navbar = () => (
-    <nav className="bg-gray-800 text-white p-4 rounded-md shadow-lg">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold font-inter">Admin Dashboard</h1>
-        <div className="space-x-4 flex">
-          <button
-            onClick={() => setCurrentPage('add-product')}
-            className={`px-3 py-2 rounded-lg transition-all duration-200 ease-in-out font-inter ${
-              currentPage === 'add-product' ? 'bg-indigo-600' : 'hover:bg-gray-700'
-            }`}
-          >
-            Add Product
-          </button>
-          <button
-            onClick={() => setCurrentPage('orders')}
-            className={`px-3 py-2 rounded-lg transition-all duration-200 ease-in-out font-inter ${
-              currentPage === 'orders' ? 'bg-indigo-600' : 'hover:bg-gray-700'
-            }`}
-          >
-            Check Orders
-          </button>
-          <button
-            onClick={() => setCurrentPage('stock')}
-            className={`px-3 py-2 rounded-lg transition-all duration-200 ease-in-out font-inter ${
-              currentPage === 'stock' ? 'bg-indigo-600' : 'hover:bg-gray-700'
-            }`}
-          >
-            Stock
-          </button>
-        </div>
-      </div>
-    </nav>
-  );
 
-  
   const AddProductPage = () => {
     
     const [productData, setProductData] = useState({
@@ -163,7 +128,6 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 font-sans">
-      <Navbar />
       <div className="mt-8">
         {currentPage === 'add-product' && <AddProductPage />}
         {currentPage === 'orders' && <OrdersPage />}
